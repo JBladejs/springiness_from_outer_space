@@ -11,7 +11,7 @@ object DesktopLauncher {
         with(config) {
             title = "Springiness From Outer Space"
             width = 1280
-            height = 720
+            height = 1280
             resizable = false
 //            vSyncEnabled = false
 //            foregroundFPS = 0
