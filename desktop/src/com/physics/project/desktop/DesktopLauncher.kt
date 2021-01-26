@@ -10,8 +10,8 @@ object DesktopLauncher {
         val config = LwjglApplicationConfiguration()
         with(config) {
             title = "Springiness From Outer Space"
-            width = 1280
-            height = 1280
+            width = 900
+            height = 900
             resizable = false
 //            vSyncEnabled = false
 //            foregroundFPS = 0
