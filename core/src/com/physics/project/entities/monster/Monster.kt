@@ -2,16 +2,18 @@ package com.physics.project.entities.monster
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.utils.Array
+import com.physics.project.Color
 import com.physics.project.Entity
 import com.physics.project.render
 
-class Monster : Entity {
+class Monster(var x: Float, var y: Float) : Entity {
+    private val centralPart = MonsterPart(x, y, Color(240, 10, 10))
     private val parts = Array<MonsterPart>()
     private val springs = Array<Spring>()
 
     init {
-        parts.add(MonsterPart(20f, 25f))
-        parts.add(MonsterPart(80f, 105f))
+        parts.add(centralPart)
+        parts.add(MonsterPart(x + 40f, y + 40f))
     }
 
     override fun update() {
