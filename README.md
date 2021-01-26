@@ -1,1 +1,1 @@
-"# springiness_from_outer_space" 
+# springiness_from_outer_space
