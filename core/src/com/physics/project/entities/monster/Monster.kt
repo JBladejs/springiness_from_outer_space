@@ -3,17 +3,19 @@ package com.physics.project.entities.monster
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.utils.Array
 import com.physics.project.Entity
+import com.physics.project.render
 
 class Monster : Entity {
-    private val parts = Array<MonsterPart>()
-    private val springs = Array<Spring>()
+    private val parts = Array<Entity>()
+    private val springs = Array<Entity>()
 
     override fun update() {
-        TODO("Not yet implemented")
+        parts.forEach { it.update() }
+        springs.forEach { it.update() }
     }
 
     override fun render(renderer: ShapeRenderer) {
-        TODO("Not yet implemented")
+        parts.forEach { renderer.render(it) }
+        springs.forEach { renderer.render(it) }
     }
-
 }
