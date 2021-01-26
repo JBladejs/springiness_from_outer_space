@@ -9,7 +9,7 @@ object DesktopLauncher {
     fun main(arg: Array<String>) {
         val config = LwjglApplicationConfiguration()
         with(config) {
-            title = "Collisions"
+            title = "Springiness From Outer Space"
             width = 1280
             height = 720
             resizable = false
