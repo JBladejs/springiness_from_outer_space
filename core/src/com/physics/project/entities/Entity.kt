@@ -6,5 +6,3 @@ interface Entity {
     fun update()
     fun render(renderer: ShapeRenderer)
 }
-
-fun ShapeRenderer.render(entity: Entity) = entity.render(this)

@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.utils.Array
 import com.physics.project.entities.Entity
 import com.physics.project.entities.monster.Monster
-import com.physics.project.entities.render
+import com.physics.project.util.render
 
 class GameScreen(private val game: SpringinessGame) : Screen {
     private val entities = Array<Entity>()
