@@ -14,7 +14,7 @@ class Monster(var x: Float, var y: Float) : Entity {
 
     init {
         parts.add(centralPart)
-        parts.add(MonsterPart(x + 141f, y + 141f))
+        parts.add(MonsterPart(x + 130f, y + 130f))
         springs.add(Spring(parts[0], parts[1]))
     }
 

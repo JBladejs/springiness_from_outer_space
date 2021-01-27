@@ -3,13 +3,13 @@ package com.physics.project.entities.monster
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.utils.Array
 import com.physics.project.Color
+import com.physics.project.Space
 import com.physics.project.entities.Entity
 import com.physics.project.util.setColor
 
 internal data class MonsterPart(var x: Float, var y: Float, val color: Color = Color(10, 10, 240)) : Entity {
     //TODO: move some of the properties to more general class/object
-    private var k = 0.001f
-    private var airRes = 0.999f
+    private val k = 0.001f
     private var vx = 0f
     private var vy = 0f
 
@@ -19,8 +19,8 @@ internal data class MonsterPart(var x: Float, var y: Float, val color: Color = C
 
     override fun update() {
         connections.forEach {
-            vx = vx * airRes + calcForceX(it)
-            vy = vy * airRes + calcForceY(it)
+            vx = vx * Space.airResistance + calcForceX(it)
+            vy = vy * Space.airResistance + calcForceY(it)
         }
         x += vx
         y += vy
@@ -29,14 +29,12 @@ internal data class MonsterPart(var x: Float, var y: Float, val color: Color = C
     private fun calcForceX(spring: Spring): Float {
         val otherX = spring.getOtherEndXLocation(this)
         val moduleF = -k*(spring.length-spring.relaxLength)
-
         return moduleF * (this.x-otherX)/spring.length
     }
 
     private fun calcForceY(spring: Spring): Float {
         val otherY = spring.getOtherEndYLocation(this)
         val moduleF = -k*(spring.length-spring.relaxLength)
-
         return moduleF * (this.y-otherY)/spring.length
     }
 

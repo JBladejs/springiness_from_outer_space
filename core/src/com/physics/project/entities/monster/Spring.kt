@@ -8,8 +8,8 @@ import kotlin.math.sqrt
 
 internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Entity {
     //TODO: verify and refactor
+    private val maxLength = 200f
     var length = 100f
-    var maxLength = 200f
     val relaxLength = 100f
     var teared = false
 
