@@ -11,6 +11,7 @@ class Monster(var x: Float, var y: Float) : Entity {
     private val centralPart = MonsterPart(x, y, Color(240, 10, 10))
     private val parts = Array<MonsterPart>()
     private val springs = Array<Spring>()
+    private val v = 5f
 
     init {
         parts.add(centralPart)
@@ -24,6 +25,8 @@ class Monster(var x: Float, var y: Float) : Entity {
             springs[i].update()
             if (springs[i].teared) springs.removeIndex(i)
         }
+        x = centralPart.x
+        y = centralPart.y
     }
 
     override fun render(renderer: ShapeRenderer) {
