@@ -7,7 +7,7 @@ import com.physics.project.Space
 import com.physics.project.entities.Entity
 import com.physics.project.util.setColor
 
-internal data class MonsterPart(var x: Float, var y: Float, val color: Color = Color(10, 10, 240)) : Entity {
+internal data class MonsterPart(var x: Float, var y: Float, private var radius: Float, val color: Color = Color(10, 10, 240)) : Entity {
     //TODO: move some of the properties to more general class/object
     private val k = 0.001f
     private var vx = 0f
@@ -41,6 +41,6 @@ internal data class MonsterPart(var x: Float, var y: Float, val color: Color = C
     override fun render(renderer: ShapeRenderer) {
         renderer.set(ShapeRenderer.ShapeType.Filled)
         renderer.setColor(color)
-        renderer.circle(x, y, 20f)
+        renderer.circle(x, y, radius)
     }
 }

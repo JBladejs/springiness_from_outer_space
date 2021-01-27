@@ -12,7 +12,7 @@ class GameScreen(private val game: SpringinessGame) : Screen {
     private val entities = Array<Entity>()
 
     init {
-        entities.add(Monster(80f, 80f))
+        entities.add(Monster(400f, 400f,30f,3,3))
     }
 
     private fun update(delta: Float) {
