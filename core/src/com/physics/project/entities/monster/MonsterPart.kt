@@ -6,10 +6,14 @@ import com.physics.project.Color
 import com.physics.project.Space
 import com.physics.project.entities.Entity
 import com.physics.project.util.setColor
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
 
-internal data class MonsterPart(var x: Float, var y: Float, private var radius: Float, val color: Color = Color(10, 10, 240)) : Entity {
+internal data class MonsterPart(var x: Float, var y: Float, var radius: Float, val color: Color = Color(10, 10, 240)) : Entity {
     //TODO: move some of the properties to more general class/object
     private val k = 0.001f
+    private val pushForce = 0.01f
     private var vx = 0f
     private var vy = 0f
 
@@ -24,6 +28,12 @@ internal data class MonsterPart(var x: Float, var y: Float, private var radius: 
         }
         x += vx
         y += vy
+    }
+
+    fun push(fromX: Float, fromY: Float){
+        val direction1 = (atan2((fromX-x).toDouble(),(fromY-y).toDouble()))
+        vx += -pushForce* sin(direction1).toFloat()
+        vy += -pushForce* cos(direction1).toFloat()
     }
 
     private fun calcForceX(spring: Spring): Float {

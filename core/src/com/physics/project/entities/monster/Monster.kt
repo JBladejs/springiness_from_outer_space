@@ -7,6 +7,7 @@ import com.physics.project.entities.Entity
 import com.physics.project.util.render
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 class Monster(var x: Float, var y: Float, var startingSize: Float,var tentacleAmount: Int, var tentacleLength: Int ) : Entity {
     //TODO: massive refactor
@@ -32,7 +33,18 @@ class Monster(var x: Float, var y: Float, var startingSize: Float,var tentacleAm
     }
 
     override fun update() {
-        parts.forEach { it.update() }
+        parts.forEach {
+            it.update()
+        }
+        //Collision check TODO: verify if it's good enough
+        for (i in 0 until parts.size - 1) {
+            for (j in i + 1 until parts.size) {
+                if(parts[j].radius + parts[i].radius > sqrt((parts[j].x - parts[i].x)*(parts[j].x - parts[i].x)+((parts[j].y - parts[i].y) * (parts[j].y - parts[i].y)))){
+                    parts[j].push(parts[i].x,parts[i].y)
+                    parts[i].push(parts[j].x,parts[j].y)
+                }
+            }
+        }
         for (i in springs.size - 1 downTo 0) {
             springs[i].update()
             if (springs[i].teared) springs.removeIndex(i)
