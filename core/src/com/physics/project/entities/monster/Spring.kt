@@ -1,7 +1,7 @@
 package com.physics.project.entities.monster
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import com.physics.project.Entity
+import com.physics.project.entities.Entity
 
 internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Entity {
     init {

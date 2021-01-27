@@ -3,8 +3,8 @@ package com.physics.project.entities.monster
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.utils.Array
 import com.physics.project.Color
-import com.physics.project.Entity
-import com.physics.project.render
+import com.physics.project.entities.Entity
+import com.physics.project.entities.render
 
 class Monster(var x: Float, var y: Float) : Entity {
     private val centralPart = MonsterPart(x, y, Color(240, 10, 10))
