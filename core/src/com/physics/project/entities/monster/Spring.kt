@@ -30,7 +30,6 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
             part2.connections.removeValue(this, true)
             teared = true
         }
-        println("$length $teared")
     }
 
     override fun render(renderer: ShapeRenderer) {
