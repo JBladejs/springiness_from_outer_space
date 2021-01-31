@@ -7,7 +7,6 @@ import com.physics.project.util.setColor
 import kotlin.math.sqrt
 
 internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Entity {
-    //TODO: verify and refactor
     companion object {
         private const val maxLength = 200f
     }
