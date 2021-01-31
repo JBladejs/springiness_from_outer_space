@@ -46,6 +46,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         }
     }
 
+    //TODO: add delta here somehow
     private fun move(x: Float, y: Float, to: Boolean) {
         val direction = atan2((x - this.x), (y - this.y))
         val force = if (to) 1 else -1
