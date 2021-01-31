@@ -9,7 +9,7 @@ import com.physics.project.entities.player.Player
 import com.physics.project.util.render
 import kotlin.math.sqrt
 
-class Monster(x: Float, y: Float, player: Player, startingSize: Float, tentacleAmount: Int, tentacleLength: Int) : Entity {
+class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tentacleAmount: Int, tentacleLength: Int) : Entity {
     val x: Float
         get() = centralPart.x
     val y: Float
@@ -57,6 +57,7 @@ class Monster(x: Float, y: Float, player: Player, startingSize: Float, tentacleA
             springs[i].update(delta)
             if (springs[i].teared) springs.removeIndex(i)
         }
+        centralPart.move(player.x, player.y)
     }
 
     override fun render(renderer: ShapeRenderer) {

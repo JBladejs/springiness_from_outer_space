@@ -32,11 +32,16 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         y += vy * delta * speed
     }
 
-    fun push(fromX: Float, fromY: Float) {
-        val direction1 = (atan2((fromX - x), (fromY - y)))
-        vx += -pushForce * sin(direction1)
-        vy += -pushForce * cos(direction1)
+    fun move(x: Float, y: Float, to: Boolean) {
+        val direction = atan2((x - this.x), (y - this.y))
+        val force = if (to) 1 else -1
+        vx += force * pushForce * sin(direction)
+        vy += force * pushForce * cos(direction)
     }
+
+    fun push(fromX: Float, fromY: Float) = move(fromX, fromY, false)
+
+    fun move(toX: Float, toY: Float) = move(toX, toY, true)
 
     private fun calcForceX(spring: Spring): Float {
         val otherX = spring.getOtherEndXLocation(this)

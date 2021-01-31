@@ -6,7 +6,6 @@ import com.physics.project.entities.Entity
 import com.physics.project.util.setColor
 
 class Player(var x: Float, var y: Float) : Entity {
-
     override fun update(delta: Float) {}
 
     override fun render(renderer: ShapeRenderer) {
@@ -14,5 +13,4 @@ class Player(var x: Float, var y: Float) : Entity {
         renderer.set(ShapeRenderer.ShapeType.Point)
         renderer.point(x, y, 0f)
     }
-
 }
