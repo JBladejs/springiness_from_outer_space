@@ -54,7 +54,7 @@ class Monster(var x: Float, var y: Float, var startingSize: Float,var tentacleAm
     }
 
     override fun render(renderer: ShapeRenderer) {
-        parts.forEach { renderer.render(it) }
         springs.forEach { renderer.render(it) }
+        parts.forEach { renderer.render(it) }
     }
 }
