@@ -3,6 +3,7 @@ package com.physics.project.entities.monster
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.physics.project.graphics.Color
 import com.physics.project.entities.Entity
+import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
 import com.physics.project.util.setColor
 import kotlin.math.sqrt
@@ -17,6 +18,7 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
     var teared = false
 
     init {
+        EntitySystem.add(this)
         part1.connections.add(this)
         part2.connections.add(this)
     }
@@ -41,5 +43,6 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
     }
 
     override fun dispose() {
+        EntitySystem.dispose(this)
     }
 }

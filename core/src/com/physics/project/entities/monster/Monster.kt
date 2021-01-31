@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
 import com.physics.project.graphics.Color
 import com.physics.project.entities.Entity
+import com.physics.project.entities.EntitySystem
 import com.physics.project.entities.player.Player
 import com.physics.project.graphics.Renderer
 
@@ -21,6 +22,7 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     private val minSize = 10f
 
     init {
+        EntitySystem.add(this)
         parts.add(centralPart)          //Dodawanie kolejnych części do tablicy następuje poziomami długości tzn. pierwsze są te najbliżej głowy później te trochę dalej itd.
         //TODO: add some random element to part generation
         for (i in 0 until tentacleLength) {
@@ -54,6 +56,7 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     }
 
     override fun dispose() {
+        EntitySystem.dispose(this)
         springs.forEach { it.dispose() }
         parts.forEach { it.dispose() }
     }

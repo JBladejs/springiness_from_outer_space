@@ -8,6 +8,7 @@ import com.physics.project.graphics.Color
 import com.physics.project.Space
 import com.physics.project.collisions.CollisionTag
 import com.physics.project.entities.Entity
+import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
 import com.physics.project.util.setColor
 
@@ -26,6 +27,8 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     private val collider = CircleCollider(x,y,radius,CollisionTag.ENEMY)
 
     operator fun times(part: MonsterPart) = (x - part.x) * (x - part.x) + (y - part.y) * (y - part.y)
+
+    init { EntitySystem.add(this) }
 
     //TODO: figure out a way to make the movement more framerate independent
     //(move() is called more times when there's more frames so the speed actuate quicker)
@@ -76,6 +79,5 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         renderer.shapes.circle(x, y, radius)
     }
 
-    override fun dispose() {
-    }
+    override fun dispose() { EntitySystem.dispose(this) }
 }

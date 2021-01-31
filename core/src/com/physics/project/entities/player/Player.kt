@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.MathUtils.sin
 import com.physics.project.Space
 import com.physics.project.graphics.Color
 import com.physics.project.entities.Entity
+import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
 import com.physics.project.util.degreesToRadians
 import com.physics.project.util.radiansToDegrees
@@ -30,6 +31,7 @@ class Player(var x: Float, var y: Float) : Entity {
     private var vy = 0f
 
     init {
+        EntitySystem.add(this)
         sprite.setSize(100f, 100f)
         centerX = sprite.width * 0.5f
         centerY = sprite.height * 0.5f
@@ -47,7 +49,6 @@ class Player(var x: Float, var y: Float) : Entity {
                 vx *= 1f - delta
                 vy *= 1f - delta
             } else {
-                //TODO: take notice that it's minus sin for x and implement that in monsterPart
                 vx -= sin * Space.airResistance * delta * speed
                 vy += cos * Space.airResistance * delta * speed
             }
@@ -68,6 +69,7 @@ class Player(var x: Float, var y: Float) : Entity {
     }
 
     override fun dispose() {
+        EntitySystem.dispose(this)
         sprite.texture.dispose()
     }
 }
