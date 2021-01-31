@@ -11,6 +11,7 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
     companion object {
         private const val maxLength = 200f
     }
+
     val relaxLength = 100f
     var length = 100f
     var teared = false
@@ -20,12 +21,12 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
         part2.connections.add(this)
     }
 
-    fun getOtherEndXLocation(part: MonsterPart): Float = if(part1 == part) part2.x else part1.x
+    fun getOtherEndXLocation(part: MonsterPart): Float = if (part1 == part) part2.x else part1.x
 
-    fun getOtherEndYLocation(part: MonsterPart): Float = if(part1 == part) part2.y else part1.y
+    fun getOtherEndYLocation(part: MonsterPart): Float = if (part1 == part) part2.y else part1.y
 
     override fun update(delta: Float) {
-        length = sqrt((part1.x - part2.x) * (part1.x - part2.x) + (part1.y - part2.y) * (part1.y - part2.y))
+        length = sqrt(part1 * part2)
         if (length > maxLength) {
             part1.connections.removeValue(this, true)
             part2.connections.removeValue(this, true)
@@ -35,7 +36,7 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
 
     override fun render(renderer: ShapeRenderer) {
         renderer.set(ShapeRenderer.ShapeType.Line)
-        renderer.setColor(Color(255,255,255))
+        renderer.setColor(Color(255, 255, 255))
         renderer.rectLine(part1.x, part1.y, part2.x, part2.y, 10f)
     }
 }

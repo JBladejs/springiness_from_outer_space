@@ -12,7 +12,7 @@ class GameScreen(private val game: SpringinessGame) : Screen {
     private val entities = Array<Entity>()
 
     init {
-        entities.add(Monster(400f, 400f,30f,5,4))
+        entities.add(Monster(400f, 400f, 30f, 5, 4))
     }
 
     private fun update(delta: Float) {
@@ -32,8 +32,8 @@ class GameScreen(private val game: SpringinessGame) : Screen {
 
     override fun dispose() {}
 
-    override fun pause() {}
     override fun resume() {}
+    override fun pause() {}
     override fun hide() {}
     override fun show() {}
 }

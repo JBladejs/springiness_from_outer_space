@@ -16,6 +16,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         private const val pushForce = 0.01f
         private const val speed = 10f
     }
+
     private var vx = 0f
     private var vy = 0f
 
@@ -34,22 +35,22 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         y += vy * delta * speed
     }
 
-    fun push(fromX: Float, fromY: Float){
-        val direction1 = (atan2((fromX-x).toDouble(),(fromY-y).toDouble()))
-        vx += -pushForce* sin(direction1).toFloat()
-        vy += -pushForce* cos(direction1).toFloat()
+    fun push(fromX: Float, fromY: Float) {
+        val direction1 = (atan2((fromX - x).toDouble(), (fromY - y).toDouble()))
+        vx += -pushForce * sin(direction1).toFloat()
+        vy += -pushForce * cos(direction1).toFloat()
     }
 
     private fun calcForceX(spring: Spring): Float {
         val otherX = spring.getOtherEndXLocation(this)
-        val moduleF = -k*(spring.length-spring.relaxLength)
-        return moduleF * (this.x-otherX)/spring.length
+        val moduleF = -k * (spring.length - spring.relaxLength)
+        return moduleF * (this.x - otherX) / spring.length
     }
 
     private fun calcForceY(spring: Spring): Float {
         val otherY = spring.getOtherEndYLocation(this)
-        val moduleF = -k*(spring.length-spring.relaxLength)
-        return moduleF * (this.y-otherY)/spring.length
+        val moduleF = -k * (spring.length - spring.relaxLength)
+        return moduleF * (this.y - otherY) / spring.length
     }
 
     override fun render(renderer: ShapeRenderer) {
