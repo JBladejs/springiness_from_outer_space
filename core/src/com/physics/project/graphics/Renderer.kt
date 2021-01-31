@@ -18,7 +18,6 @@ class Renderer {
             }
             if (!isShapeRendererActive) {
                 shapeRenderer.begin()
-
                 isShapeRendererActive = true
             }
             return shapeRenderer
