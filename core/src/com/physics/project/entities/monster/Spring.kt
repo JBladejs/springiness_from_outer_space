@@ -3,6 +3,7 @@ package com.physics.project.entities.monster
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.physics.project.Color
 import com.physics.project.entities.Entity
+import com.physics.project.graphics.Renderer
 import com.physics.project.util.setColor
 import kotlin.math.sqrt
 
@@ -33,9 +34,9 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
         }
     }
 
-    override fun render(renderer: ShapeRenderer) {
-        renderer.set(ShapeRenderer.ShapeType.Line)
-        renderer.setColor(Color(255, 255, 255))
-        renderer.rectLine(part1.x, part1.y, part2.x, part2.y, 10f)
+    override fun render(renderer: Renderer) {
+        renderer.shapeRenderer.set(ShapeRenderer.ShapeType.Line)
+        renderer.shapeRenderer.setColor(Color(255, 255, 255))
+        renderer.shapeRenderer.rectLine(part1.x, part1.y, part2.x, part2.y, 10f)
     }
 }

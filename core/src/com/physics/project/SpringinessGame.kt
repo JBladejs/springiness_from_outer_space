@@ -1,14 +1,14 @@
 package com.physics.project
 
 import com.badlogic.gdx.Game
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.physics.project.graphics.Renderer
 
 class SpringinessGame : Game() {
-    lateinit var renderer: ShapeRenderer
+    lateinit var renderer: Renderer
 
     override fun create() {
-        renderer = ShapeRenderer()
-        renderer.setAutoShapeType(true)
+        renderer = Renderer()
+
         screen = GameScreen(this)
     }
 

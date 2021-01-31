@@ -8,6 +8,7 @@ import com.physics.project.Color
 import com.physics.project.Space
 import com.physics.project.collisions.CollisionTag
 import com.physics.project.entities.Entity
+import com.physics.project.graphics.Renderer
 import com.physics.project.util.setColor
 
 
@@ -43,14 +44,14 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         }
     }
 
-    fun move(x: Float, y: Float, to: Boolean) {
+    private fun move(x: Float, y: Float, to: Boolean) {
         val direction = atan2((x - this.x), (y - this.y))
         val force = if (to) 1 else -1
         vx += force * pushForce * sin(direction)
         vy += force * pushForce * cos(direction)
     }
 
-    fun push(fromX: Float, fromY: Float) = move(fromX, fromY, false)
+    private fun push(fromX: Float, fromY: Float) = move(fromX, fromY, false)
 
     fun move(toX: Float, toY: Float) = move(toX, toY, true)
 
@@ -66,9 +67,9 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         return moduleF * (this.y - otherY) / spring.length
     }
 
-    override fun render(renderer: ShapeRenderer) {
-        renderer.set(ShapeRenderer.ShapeType.Filled)
-        renderer.setColor(color)
-        renderer.circle(x, y, radius)
+    override fun render(renderer: Renderer) {
+        renderer.shapeRenderer.set(ShapeRenderer.ShapeType.Filled)
+        renderer.shapeRenderer.setColor(color)
+        renderer.shapeRenderer.circle(x, y, radius)
     }
 }

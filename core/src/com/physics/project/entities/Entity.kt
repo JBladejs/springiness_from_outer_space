@@ -1,8 +1,8 @@
 package com.physics.project.entities
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.physics.project.graphics.Renderer
 
 interface Entity {
     fun update(delta: Float)
-    fun render(renderer: ShapeRenderer)
+    fun render(renderer: Renderer)
 }
