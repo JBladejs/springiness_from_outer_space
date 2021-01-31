@@ -2,7 +2,7 @@ package com.physics.project.entities.monster
 
 import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
-import com.physics.project.Color
+import com.physics.project.graphics.Color
 import com.physics.project.entities.Entity
 import com.physics.project.entities.player.Player
 import com.physics.project.graphics.Renderer
@@ -51,5 +51,10 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     override fun render(renderer: Renderer) {
         springs.forEach { renderer.render(it) }
         parts.forEach { renderer.render(it) }
+    }
+
+    override fun dispose() {
+        springs.forEach { it.dispose() }
+        parts.forEach { it.dispose() }
     }
 }

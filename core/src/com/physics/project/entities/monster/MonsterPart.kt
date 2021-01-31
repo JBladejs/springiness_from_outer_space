@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
 import com.physics.project.collisions.CircleCollider
-import com.physics.project.Color
+import com.physics.project.graphics.Color
 import com.physics.project.Space
 import com.physics.project.collisions.CollisionTag
 import com.physics.project.entities.Entity
@@ -68,8 +68,11 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     }
 
     override fun render(renderer: Renderer) {
-        renderer.shapeRenderer.set(ShapeRenderer.ShapeType.Filled)
-        renderer.shapeRenderer.setColor(color)
-        renderer.shapeRenderer.circle(x, y, radius)
+        renderer.shapes.set(ShapeRenderer.ShapeType.Filled)
+        renderer.shapes.setColor(color)
+        renderer.shapes.circle(x, y, radius)
+    }
+
+    override fun dispose() {
     }
 }

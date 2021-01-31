@@ -1,4 +1,4 @@
-package com.physics.project
+package com.physics.project.graphics
 
 class Color(red: Int, green: Int, blue: Int) {
     val red = red.toFloat() / 255.0f
