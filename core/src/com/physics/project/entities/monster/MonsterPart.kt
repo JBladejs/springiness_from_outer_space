@@ -27,6 +27,8 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
 
     operator fun times(part: MonsterPart) = (x - part.x) * (x - part.x) + (y - part.y) * (y - part.y)
 
+    //TODO: figure out a way to make the movement more framerate independent
+    //(move() is called more times when there's more frames so the speed actuate quicker)
     override fun update(delta: Float) {
         connections.forEach {
             vx = vx * Space.airResistance + calcForceX(it)

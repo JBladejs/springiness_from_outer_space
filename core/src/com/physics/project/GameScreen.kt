@@ -22,7 +22,6 @@ class GameScreen(private val game: SpringinessGame) : Screen {
     }
 
     private fun update(delta: Float) {
-        println("${1f / delta}FPS")
         entities.forEach { it.update(delta) }
         CollisionSystem.update()
     }
