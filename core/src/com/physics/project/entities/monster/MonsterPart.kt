@@ -10,7 +10,7 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
-internal data class MonsterPart(var x: Float, var y: Float, var radius: Float, val color: Color = Color(10, 10, 240)) : Entity {
+internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float, var radius: Float, val color: Color = Color(10, 10, 240)) : Entity {
     //TODO: move some of the properties to more general class/object
     private val k = 0.001f
     private val pushForce = 0.01f
@@ -20,6 +20,8 @@ internal data class MonsterPart(var x: Float, var y: Float, var radius: Float, v
     val connections = Array<Spring>()
 
     //TODO: verify all of that and refactor
+
+    operator fun times(part: MonsterPart) = (x - part.x) * (x - part.x) + (y - part.y) * (y - part.y)
 
     override fun update() {
         connections.forEach {

@@ -1,18 +1,16 @@
 package com.physics.project.entities.monster
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import com.badlogic.gdx.math.MathUtils.PI
-import com.badlogic.gdx.math.MathUtils.sin
+import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
 import com.physics.project.Color
 import com.physics.project.entities.Entity
 import com.physics.project.util.render
-import kotlin.math.cos
 import kotlin.math.sqrt
 
 class Monster(var x: Float, var y: Float, startingSize: Float, tentacleAmount: Int, tentacleLength: Int) : Entity {
     //TODO: massive refactor
-    private val centralPart = MonsterPart(x, y, startingSize, Color(240, 10, 10))
+    private val centralPart = MonsterPart(this, x, y, startingSize, Color(240, 10, 10))
     private val parts = Array<MonsterPart>()
     private val springs = Array<Spring>()
 //    private val v = 5f //not used yet
@@ -31,7 +29,7 @@ class Monster(var x: Float, var y: Float, startingSize: Float, tentacleAmount: I
         }
     }
 
-    private fun createPart(x: Float, y: Float, size: Float) = parts.add(MonsterPart(this.x + x, this.y + y, size))
+    private fun createPart(x: Float, y: Float, size: Float) = parts.add(MonsterPart(this, this.x + x, this.y + y, size))
 
     private fun connect(part1: MonsterPart, part2: MonsterPart) = springs.add(Spring(part1, part2))
 
@@ -43,7 +41,7 @@ class Monster(var x: Float, var y: Float, startingSize: Float, tentacleAmount: I
         //TODO: implement proper collision system
         for (i in 0 until parts.size - 1) {
             for (j in i + 1 until parts.size) {
-                if (parts[j].radius + parts[i].radius > sqrt((parts[j].x - parts[i].x) * (parts[j].x - parts[i].x) + ((parts[j].y - parts[i].y) * (parts[j].y - parts[i].y)))) {
+                if (parts[j].radius + parts[i].radius > sqrt(parts[j] * parts[i])) {
                     parts[j].push(parts[i].x, parts[i].y)
                     parts[i].push(parts[j].x, parts[j].y)
                 }
