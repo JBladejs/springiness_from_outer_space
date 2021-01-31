@@ -14,6 +14,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     companion object {
         private const val k = 0.001f
         private const val pushForce = 0.01f
+        private const val speed = 10f
     }
     private var vx = 0f
     private var vy = 0f
@@ -29,8 +30,8 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
             vx = vx * Space.airResistance + calcForceX(it)
             vy = vy * Space.airResistance + calcForceY(it)
         }
-        x += vx
-        y += vy
+        x += vx * delta * speed
+        y += vy * delta * speed
     }
 
     fun push(fromX: Float, fromY: Float){
