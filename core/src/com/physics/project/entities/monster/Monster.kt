@@ -5,10 +5,11 @@ import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
 import com.physics.project.Color
 import com.physics.project.entities.Entity
+import com.physics.project.entities.player.Player
 import com.physics.project.util.render
 import kotlin.math.sqrt
 
-class Monster(var x: Float, var y: Float, startingSize: Float, tentacleAmount: Int, tentacleLength: Int) : Entity {
+class Monster(var x: Float, var y: Float, player: Player, startingSize: Float, tentacleAmount: Int, tentacleLength: Int) : Entity {
     private val centralPart = MonsterPart(this, x, y, startingSize, Color(240, 10, 10))
     private val parts = Array<MonsterPart>()
     private val springs = Array<Spring>()

@@ -6,13 +6,17 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.utils.Array
 import com.physics.project.entities.Entity
 import com.physics.project.entities.monster.Monster
+import com.physics.project.entities.player.Player
 import com.physics.project.util.render
 
 class GameScreen(private val game: SpringinessGame) : Screen {
     private val entities = Array<Entity>()
 
     init {
-        entities.add(Monster(400f, 400f, 30f, 5, 4))
+        //TODO: Implement proper entity system
+        val player = Player(800f, 800f)
+        entities.add(player)
+        entities.add(Monster(400f, 400f, player,30f, 5, 4))
     }
 
     private fun update(delta: Float) {
