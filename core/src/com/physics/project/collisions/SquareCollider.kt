@@ -12,7 +12,6 @@ class SquareCollider(var x: Float, var y: Float, var size: Float,var rotation: F
     val diagonal = sqrt(2*size.pow(2))- (size*0.5f)
 
     init {
-
         this.size = size*0.5f
         this.rotation = rotation*(3.14f/180f)
         //CollisionSystem.add(this)
