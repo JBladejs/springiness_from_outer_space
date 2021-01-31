@@ -6,8 +6,8 @@ import kotlin.math.sqrt
 
 class SquareCollider(var x: Float, var y: Float, var size: Float,var rotation: Float, val tag: CollisionTag) {
     var isColliding = false
-    var xHit = 500f
-    var yHit = 600f
+    var xHit = 0
+    var yHit = 0
     var tagHit = CollisionTag.EMPTY
     val diagonal = sqrt(2*size.pow(2))- (size*0.5f)
 
@@ -17,7 +17,8 @@ class SquareCollider(var x: Float, var y: Float, var size: Float,var rotation: F
         //CollisionSystem.add(this)
     }
 
-    fun update(x: Float, y: Float) {
+    fun update(x: Float, y: Float, rot: Float) {
+        this.rotation = rot*(3.14f/180f)
         this.x = x
         this.y = y
     }
