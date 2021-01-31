@@ -9,7 +9,6 @@ import com.physics.project.util.render
 import kotlin.math.sqrt
 
 class Monster(var x: Float, var y: Float, startingSize: Float, tentacleAmount: Int, tentacleLength: Int) : Entity {
-    //TODO: massive refactor
     private val centralPart = MonsterPart(this, x, y, startingSize, Color(240, 10, 10))
     private val parts = Array<MonsterPart>()
     private val springs = Array<Spring>()
@@ -19,6 +18,7 @@ class Monster(var x: Float, var y: Float, startingSize: Float, tentacleAmount: I
 
     init {
         parts.add(centralPart)          //Dodawanie kolejnych części do tablicy następuje poziomami długości tzn. pierwsze są te najbliżej głowy później te trochę dalej itd.
+        //TODO: add some random element to part generation
         for (i in 0 until tentacleLength) {
             for (j in 1..tentacleAmount) {
                 val currentLengthSize = startingSize * ((tentacleLength - i - 1).toFloat() / tentacleLength) + (minSize * ((i + 1f) / tentacleLength))
