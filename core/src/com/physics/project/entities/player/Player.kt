@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input.Keys.*
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.MathUtils.cos
+import com.badlogic.gdx.math.MathUtils.sin
 import com.physics.project.Space
 import com.physics.project.graphics.Color
 import com.physics.project.entities.Entity
@@ -12,8 +14,6 @@ import com.physics.project.graphics.Renderer
 import com.physics.project.util.degreesToRadians
 import com.physics.project.util.radiansToDegrees
 import com.physics.project.util.setColor
-import kotlin.math.cos
-import kotlin.math.sin
 
 class Player(var x: Float, var y: Float) : Entity {
     companion object {
