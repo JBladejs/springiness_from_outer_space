@@ -31,8 +31,6 @@ class Player(var x: Float, var y: Float) : Entity {
 
     override fun render(renderer: Renderer) {
         sprite.draw(renderer.sprites)
-        renderer.shapes.set(ShapeRenderer.ShapeType.Filled)
-        renderer.shapes.circle(x, y, 20f)
     }
 
     override fun dispose() {
