@@ -24,7 +24,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
 
     operator fun times(part: MonsterPart) = (x - part.x) * (x - part.x) + (y - part.y) * (y - part.y)
 
-    override fun update() {
+    override fun update(delta: Float) {
         connections.forEach {
             vx = vx * Space.airResistance + calcForceX(it)
             vy = vy * Space.airResistance + calcForceY(it)

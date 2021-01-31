@@ -33,9 +33,9 @@ class Monster(var x: Float, var y: Float, startingSize: Float, tentacleAmount: I
 
     private fun connect(part1: MonsterPart, part2: MonsterPart) = springs.add(Spring(part1, part2))
 
-    override fun update() {
+    override fun update(delta: Float) {
         parts.forEach {
-            it.update()
+            it.update(delta)
         }
         //Collision check TODO: verify if it's good enough
         //TODO: implement proper collision system
@@ -48,7 +48,7 @@ class Monster(var x: Float, var y: Float, startingSize: Float, tentacleAmount: I
             }
         }
         for (i in springs.size - 1 downTo 0) {
-            springs[i].update()
+            springs[i].update(delta)
             if (springs[i].teared) springs.removeIndex(i)
         }
         x = centralPart.x

@@ -8,13 +8,14 @@ import kotlin.math.sqrt
 
 internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Entity {
     //TODO: verify and refactor
-    private val maxLength = 200f
-    var length = 100f
+    companion object {
+        private const val maxLength = 200f
+    }
     val relaxLength = 100f
+    var length = 100f
     var teared = false
 
     init {
-        //TODO: check if it needs encapsulation
         part1.connections.add(this)
         part2.connections.add(this)
     }
@@ -23,7 +24,7 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
 
     fun getOtherEndYLocation(part: MonsterPart): Float = if(part1 == part) part2.y else part1.y
 
-    override fun update() {
+    override fun update(delta: Float) {
         length = sqrt((part1.x - part2.x) * (part1.x - part2.x) + (part1.y - part2.y) * (part1.y - part2.y))
         if (length > maxLength) {
             part1.connections.removeValue(this, true)

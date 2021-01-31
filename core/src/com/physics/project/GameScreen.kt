@@ -16,7 +16,7 @@ class GameScreen(private val game: SpringinessGame) : Screen {
     }
 
     private fun update(delta: Float) {
-        entities.forEach { it.update() }
+        entities.forEach { it.update(delta) }
     }
 
     override fun render(delta: Float) {
