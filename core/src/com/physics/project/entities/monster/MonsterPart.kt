@@ -3,8 +3,10 @@ package com.physics.project.entities.monster
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
+import com.game_physics.collisions.system.CircleCollider
 import com.physics.project.Color
 import com.physics.project.Space
+import com.physics.project.collisions.CollisionTag
 import com.physics.project.entities.Entity
 import com.physics.project.util.setColor
 
@@ -20,6 +22,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     private var vy = 0f
 
     val connections = Array<Spring>()
+    private val collider = CircleCollider(x,y,radius,CollisionTag.ENEMY)
 
     operator fun times(part: MonsterPart) = (x - part.x) * (x - part.x) + (y - part.y) * (y - part.y)
 
@@ -30,6 +33,11 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         }
         x += vx * delta * speed
         y += vy * delta * speed
+
+        collider.update(x,y)
+        if(collider.isColiding){
+            collider.isColiding = false
+        }
     }
 
     fun move(x: Float, y: Float, to: Boolean) {
