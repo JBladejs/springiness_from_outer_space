@@ -1,11 +1,10 @@
-package com.game_physics.collisions.system
+package com.physics.project.collisions
 
-import com.physics.project.collisions.CollisionTag
 import kotlin.math.pow
 import kotlin.math.sqrt
 
 class CircleCollider(var x: Float, var y: Float, val radius: Float, val tag: CollisionTag) {
-    var isColiding = false
+    var isColliding = false
     var xHit = 0f
     var yHit = 0f
     var tagHit = CollisionTag.EMPTY

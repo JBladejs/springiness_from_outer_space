@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.utils.Array
-import com.game_physics.collisions.system.CollisionSystem
+import com.physics.project.collisions.CollisionSystem
 import com.physics.project.entities.Entity
 import com.physics.project.entities.monster.Monster
 import com.physics.project.entities.player.Player

@@ -1,6 +1,5 @@
-package com.game_physics.collisions.system
+package com.physics.project.collisions
 
-import com.badlogic.gdx.math.MathUtils.atan2
 import com.badlogic.gdx.utils.Array
 
 object CollisionSystem {
@@ -26,11 +25,11 @@ object CollisionSystem {
                     //funkcja if odpowiada za to czy kolizja jest jednorazowa czy stała na czas stykania się obiektów
                     //if (!collisions.contains(Collision(colliders[i], colliders[j]), false)) {
                         collisions.add(Collision(colliders[i], colliders[j]))
-                        colliders[i].isColiding = true
+                        colliders[i].isColliding = true
                         colliders[i].tagHit = colliders[j].tag
                         colliders[i].xHit = colliders[j].x
                         colliders[i].yHit = colliders[j].y
-                        colliders[j].isColiding = true
+                        colliders[j].isColliding = true
                         colliders[j].tagHit = colliders[i].tag
                         colliders[j].xHit = colliders[i].x
                         colliders[j].yHit = colliders[i].y

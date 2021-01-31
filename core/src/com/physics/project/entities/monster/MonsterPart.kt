@@ -3,7 +3,7 @@ package com.physics.project.entities.monster
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
-import com.game_physics.collisions.system.CircleCollider
+import com.physics.project.collisions.CircleCollider
 import com.physics.project.Color
 import com.physics.project.Space
 import com.physics.project.collisions.CollisionTag
@@ -35,11 +35,11 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         y += vy * delta * speed
 
         collider.update(x,y)
-        if(collider.isColiding){
+        if(collider.isColliding){
             if(collider.tag == CollisionTag.ENEMY){
                 push(collider.xHit,collider.yHit)
             }
-            collider.isColiding = false
+            collider.isColliding = false
         }
     }
 
