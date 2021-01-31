@@ -42,6 +42,12 @@ class Renderer {
     fun render(entity: Entity) = entity.render(this)
 
     fun dispose() {
+        if (isSpriteBatchActive) {
+            spriteBatch.end()
+        }
+        if (isShapeRendererActive) {
+            shapeRenderer.end()
+        }
         shapes.dispose()
         sprites.dispose()
     }
