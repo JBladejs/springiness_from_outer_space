@@ -1,14 +1,13 @@
 package com.physics.project.entities.monster
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
 import com.physics.project.Color
 import com.physics.project.Space
 import com.physics.project.entities.Entity
 import com.physics.project.util.setColor
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
+
 
 internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float, var radius: Float, val color: Color = Color(10, 10, 240)) : Entity {
     companion object {
@@ -22,8 +21,6 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
 
     val connections = Array<Spring>()
 
-    //TODO: verify all of that and refactor
-
     operator fun times(part: MonsterPart) = (x - part.x) * (x - part.x) + (y - part.y) * (y - part.y)
 
     override fun update(delta: Float) {
@@ -36,9 +33,9 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     }
 
     fun push(fromX: Float, fromY: Float) {
-        val direction1 = (atan2((fromX - x).toDouble(), (fromY - y).toDouble()))
-        vx += -pushForce * sin(direction1).toFloat()
-        vy += -pushForce * cos(direction1).toFloat()
+        val direction1 = (atan2((fromX - x), (fromY - y)))
+        vx += -pushForce * sin(direction1)
+        vy += -pushForce * cos(direction1)
     }
 
     private fun calcForceX(spring: Spring): Float {
