@@ -36,6 +36,9 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
 
         collider.update(x,y)
         if(collider.isColiding){
+            if(collider.tag == CollisionTag.ENEMY){
+                push(collider.xHit,collider.yHit)
+            }
             collider.isColiding = false
         }
     }

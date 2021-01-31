@@ -43,16 +43,6 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
         parts.forEach {
             it.update(delta)
         }
-        //Collision check TODO: verify if it's good enough
-        //TODO: implement proper collision system
-        for (i in 0 until parts.size - 1) {
-            for (j in i + 1 until parts.size) {
-                if (parts[j].radius + parts[i].radius > sqrt(parts[j] * parts[i])) {
-                    parts[j].push(parts[i].x, parts[i].y)
-                    parts[i].push(parts[j].x, parts[j].y)
-                }
-            }
-        }
         for (i in springs.size - 1 downTo 0) {
             springs[i].update(delta)
             if (springs[i].teared) springs.removeIndex(i)

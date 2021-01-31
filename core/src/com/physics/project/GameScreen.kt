@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.utils.Array
+import com.game_physics.collisions.system.CollisionSystem
 import com.physics.project.entities.Entity
 import com.physics.project.entities.monster.Monster
 import com.physics.project.entities.player.Player
@@ -21,6 +22,7 @@ class GameScreen(private val game: SpringinessGame) : Screen {
 
     private fun update(delta: Float) {
         entities.forEach { it.update(delta) }
+        CollisionSystem.update()
     }
 
     override fun render(delta: Float) {
