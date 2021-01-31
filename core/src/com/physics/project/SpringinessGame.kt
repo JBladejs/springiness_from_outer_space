@@ -8,7 +8,6 @@ class SpringinessGame : Game() {
 
     override fun create() {
         renderer = Renderer()
-
         screen = GameScreen(this)
     }
 
