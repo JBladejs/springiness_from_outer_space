@@ -15,9 +15,6 @@ class Player(var x: Float, var y: Float) : Entity {
     override fun update(delta: Float) {}
 
     override fun render(renderer: Renderer) {
-        renderer.shapes.setColor(Color(255, 0, 0))
-        renderer.shapes.set(ShapeRenderer.ShapeType.Filled)
-        renderer.shapes.circle(x, y, 10f)
         renderer.sprites.draw(sprite, x, y)
     }
 
