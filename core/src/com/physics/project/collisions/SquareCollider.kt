@@ -14,7 +14,7 @@ class SquareCollider(override var x: Float, override var y: Float, var size: Flo
     init {
         this.size = size*0.5f
         this.rotation = rotation*(3.14f/180f)
-        //CollisionSystem.add(this)
+        CollisionSystem.add(this)
     }
 
     fun update(x: Float, y: Float, rot: Float) {
