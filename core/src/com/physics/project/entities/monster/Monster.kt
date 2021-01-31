@@ -9,7 +9,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-class Monster(var x: Float, var y: Float, var startingSize: Float,var tentacleAmount: Int, var tentacleLength: Int ) : Entity {
+class Monster(var x: Float, var y: Float, startingSize: Float, tentacleAmount: Int, tentacleLength: Int ) : Entity {
     //TODO: massive refactor
     private val centralPart = MonsterPart(x, y, startingSize, Color(240, 10, 10))
     private val parts = Array<MonsterPart>()
@@ -20,9 +20,9 @@ class Monster(var x: Float, var y: Float, var startingSize: Float,var tentacleAm
 
     init {
         parts.add(centralPart)          //Dodawanie kolejnych części do tablicy następuje poziomami długości tzn. pierwsze są te najbliżej głowy później te trochę dalej itd.
-        for( i in 0..tentacleLength-1) {
+        for( i in 0 until tentacleLength) {
             for( j in 1..tentacleAmount) {
-                var currentLengthSize = startingSize * ((tentacleLength-i-1).toFloat()/tentacleLength) + (minSize*((i+1f)/tentacleLength))
+                val currentLengthSize = startingSize * ((tentacleLength-i-1).toFloat()/tentacleLength) + (minSize*((i+1f)/tentacleLength))
                 parts.add(MonsterPart(x + 110f * (i+1) * sin(2f * Math.PI / tentacleAmount * j).toFloat(), y + 110f * (i+1) * cos(2f * Math.PI / tentacleAmount * j).toFloat(),currentLengthSize))
                 if(i>0)
                     springs.add(Spring(parts[j+((i-1)*tentacleAmount)], parts[j+(i*tentacleAmount)]))
