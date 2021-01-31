@@ -51,8 +51,8 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     }
 
     override fun render(renderer: Renderer) {
-        parts.forEach { renderer.render(it) }
-        springs.forEach { renderer.render(it) }
+//        parts.forEach { renderer.render(it) }
+//        springs.forEach { renderer.render(it) }
     }
 
     override fun dispose() {

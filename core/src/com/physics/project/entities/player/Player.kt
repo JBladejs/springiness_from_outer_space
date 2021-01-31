@@ -45,7 +45,7 @@ class Player(var x: Float, var y: Float) : Entity {
             val sin = sin(direction)
             val cos = cos(direction)
             if (Gdx.input.isKeyPressed(S)) {
-                println(delta * stoppingSpeed)
+//                println(delta * stoppingSpeed)
                 vx *= 1f - delta
                 vy *= 1f - delta
             } else {
@@ -55,6 +55,7 @@ class Player(var x: Float, var y: Float) : Entity {
         }
         if (Gdx.input.isKeyPressed(A)) rotation += rotationSpeed * delta
         if (Gdx.input.isKeyPressed(D)) rotation -= rotationSpeed * delta
+        if (Gdx.input.isKeyPressed(SPACE)) Bullet(x, y, degreesToRadians(rotation))
 
         x += vx * delta
         y += vy * delta

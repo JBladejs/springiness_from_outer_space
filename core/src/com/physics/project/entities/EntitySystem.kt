@@ -14,5 +14,5 @@ object EntitySystem {
 
     fun update(delta: Float) = entities.forEach{ it.update(delta) }
 
-    fun disposeAll() = entities.forEach { dispose(it) }
+    fun disposeAll() = entities.forEach { it.dispose() }
 }
