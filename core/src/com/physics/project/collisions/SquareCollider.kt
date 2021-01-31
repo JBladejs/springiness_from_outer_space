@@ -4,11 +4,11 @@ import com.badlogic.gdx.math.MathUtils.*
 import kotlin.math.pow
 import kotlin.math.sqrt
 
-class SquareCollider(var x: Float, var y: Float, var size: Float,var rotation: Float, val tag: CollisionTag) {
-    var isColliding = false
-    var xHit = 0
-    var yHit = 0
-    var tagHit = CollisionTag.EMPTY
+class SquareCollider(override var x: Float, override var y: Float, var size: Float,var rotation: Float, override val tag: CollisionTag): Collider {
+    override var isColliding = false
+    override var xHit = 0f
+    override var yHit = 0f
+    override var tagHit = CollisionTag.EMPTY
     val diagonal = sqrt(2*size.pow(2))- (size*0.5f)
 
     init {
@@ -23,12 +23,18 @@ class SquareCollider(var x: Float, var y: Float, var size: Float,var rotation: F
         this.y = y
     }
 
-    fun collides(collider: CircleCollider): Boolean {
-        var angleToCirc = atan2(yHit - y,xHit - x)
-        var angleDiffrences = (angleToCirc - rotation)%6.28f
-        var percent = sin(2f*angleDiffrences)
-        var squareRadius = size*0.5f+(diagonal*percent)
+    private fun collides(collider: CircleCollider): Boolean {
+        val angleToCirc = atan2(yHit - y,xHit - x)
+        val angleDiffrences = (angleToCirc - rotation)%6.28f
+        val percent = sin(2f*angleDiffrences)
+        val squareRadius = size*0.5f+(diagonal*percent)
 
         return sqrt((collider.x - x).pow(2) + (collider.y - y).pow(2)) <  squareRadius + collider.radius
     }
+
+    private fun collides(collider: SquareCollider): Boolean {
+        TODO("Square to square collisions are not implemented yet!!!")
+    }
+
+    override fun collides(collider: Collider): Boolean = if (collider is CircleCollider) collides(collider) else collides(collider as SquareCollider)
 }
