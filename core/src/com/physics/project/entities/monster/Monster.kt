@@ -39,13 +39,6 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     private fun connect(part1: MonsterPart, part2: MonsterPart) = springs.add(Spring(part1, part2))
 
     override fun update(delta: Float) {
-        parts.forEach {
-            it.update(delta)
-        }
-        for (i in springs.size - 1 downTo 0) {
-            springs[i].update(delta)
-            if (springs[i].teared) springs.removeIndex(i)
-        }
         centralPart.move(player.x, player.y)
     }
 

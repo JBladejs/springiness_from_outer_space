@@ -15,8 +15,12 @@ import com.physics.project.util.setColor
 class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
     private val vx: Float
     private val vy: Float
-    //TODO: move radius to val
-    private val collider = CircleCollider(x, y, 10f, CollisionTag.BULLET)
+
+    companion object{
+        val radius = 10f
+    }
+
+    private val collider = CircleCollider(x, y, radius, CollisionTag.BULLET)
 
     init {
         EntitySystem.add(this)
