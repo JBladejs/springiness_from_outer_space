@@ -5,8 +5,7 @@ import com.badlogic.gdx.Input.Keys.*
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import com.badlogic.gdx.math.MathUtils.cos
-import com.badlogic.gdx.math.MathUtils.sin
+import com.badlogic.gdx.math.MathUtils.*
 import com.physics.project.Space
 import com.physics.project.graphics.Color
 import com.physics.project.entities.Entity
@@ -53,6 +52,7 @@ class Player(var x: Float, var y: Float) : Entity {
                 vy += cos * Space.airResistance * delta * speed
             }
         }
+
         if (Gdx.input.isKeyPressed(A)) rotation += rotationSpeed * delta
         if (Gdx.input.isKeyPressed(D)) rotation -= rotationSpeed * delta
         if (Gdx.input.isKeyPressed(SPACE)) Bullet(x, y, degreesToRadians(rotation))

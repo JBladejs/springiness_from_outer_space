@@ -17,7 +17,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     companion object {
         private const val k = 0.001f
         private const val pushForce = 0.01f
-        private const val hitForce = 500f
+        private const val hitForce = 5f
         private const val speed = 10f
     }
 
@@ -65,7 +65,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
 
     fun move(toX: Float, toY: Float) = move(toX, toY, true)
 
-    private fun hit(hitX: Float, hitY: Float) {
+    private fun hit(x: Float, y: Float) {
         val direction = atan2((x - this.x), (y - this.y))
         vx -= hitForce * sin(direction)
         vy -= hitForce * cos(direction)
