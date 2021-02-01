@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.cos
 import com.badlogic.gdx.math.MathUtils.sin
+import com.physics.project.collisions.CircleCollider
+import com.physics.project.collisions.CollisionTag
 import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Color
@@ -13,6 +15,8 @@ import com.physics.project.util.setColor
 class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
     private val vx: Float
     private val vy: Float
+    //TODO: move radius to val
+    private val collider = CircleCollider(x, y, 10f, CollisionTag.BULLET)
 
     init {
         EntitySystem.add(this)
@@ -24,6 +28,13 @@ class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
     override fun update(delta: Float) {
         x += vx * delta
         y += vy * delta
+        collider.update(x, y)
+        if(collider.isColliding){
+            println(collider.tagHit)
+            if(collider.tagHit == CollisionTag.ENEMY){
+                dispose()
+            }
+        }
         if (x >= Gdx.graphics.width || x <= 0f || y >= Gdx.graphics.height || y <= 0f)
             dispose()
     }
@@ -35,6 +46,7 @@ class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
     }
 
     override fun dispose() {
+        collider.dispose()
         EntitySystem.dispose(this)
     }
 }

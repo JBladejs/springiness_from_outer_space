@@ -32,4 +32,8 @@ class CircleCollider(override var x: Float, override var y: Float, val radius: F
     }
 
     override fun collides(collider: Collider): Boolean = if (collider is CircleCollider) collides(collider) else collides(collider as SquareCollider)
+
+    override fun dispose() {
+       CollisionSystem.remove(this)
+    }
 }

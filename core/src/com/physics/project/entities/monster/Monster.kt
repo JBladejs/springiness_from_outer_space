@@ -17,7 +17,6 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     private val centralPart = MonsterPart(this, x, y, startingSize, Color(240, 10, 10))
     private val parts = Array<MonsterPart>()
     private val springs = Array<Spring>()
-//    private val v = 5f //not used yet
 
     private val minSize = 10f
 

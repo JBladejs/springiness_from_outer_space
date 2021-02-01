@@ -17,6 +17,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     companion object {
         private const val k = 0.001f
         private const val pushForce = 0.01f
+        private const val hitForce = 500f
         private const val speed = 10f
     }
 
@@ -45,6 +46,9 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
             if(collider.tag == CollisionTag.ENEMY){
                 push(collider.xHit,collider.yHit)
             }
+            if (collider.tag == CollisionTag.BULLET) {
+                hit(collider.xHit, collider.yHit)
+            }
             collider.isColliding = false
         }
     }
@@ -60,6 +64,12 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     private fun push(fromX: Float, fromY: Float) = move(fromX, fromY, false)
 
     fun move(toX: Float, toY: Float) = move(toX, toY, true)
+
+    private fun hit(hitX: Float, hitY: Float) {
+        val direction = atan2((x - this.x), (y - this.y))
+        vx -= hitForce * sin(direction)
+        vy -= hitForce * cos(direction)
+    }
 
     private fun calcForceX(spring: Spring): Float {
         val otherX = spring.getOtherEndXLocation(this)
@@ -79,5 +89,8 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         renderer.shapes.circle(x, y, radius)
     }
 
-    override fun dispose() { EntitySystem.dispose(this) }
+    override fun dispose() {
+        collider.dispose()
+        EntitySystem.dispose(this)
+    }
 }
