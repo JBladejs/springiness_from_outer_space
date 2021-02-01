@@ -43,10 +43,10 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
 
         collider.update(x,y)
         if(collider.isColliding){
-            if(collider.tag == CollisionTag.ENEMY){
+            if(collider.tagHit == CollisionTag.ENEMY){
                 push(collider.xHit,collider.yHit)
             }
-            if (collider.tag == CollisionTag.BULLET) {
+            if (collider.tagHit == CollisionTag.BULLET) {
                 hit(collider.xHit, collider.yHit)
             }
             collider.isColliding = false
