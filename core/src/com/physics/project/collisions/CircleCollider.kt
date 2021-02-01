@@ -22,16 +22,16 @@ class CircleCollider(override var x: Float, override var y: Float, val radius: F
 
     private fun collides(collider: CircleCollider): Boolean = sqrt((collider.x - x).pow(2) + (collider.y - y).pow(2)) < radius + collider.radius
 
-    private fun collides(collider: SquareCollider): Boolean {
+    private fun collides(collider: BoxCollider): Boolean {
         val angleToCirc = MathUtils.atan2(yHit - y, xHit - x)
         val angleDiffrences = (angleToCirc - (collider.rotation*(3.14f/180f)))%6.28f
         val percent = MathUtils.sin(2f * angleDiffrences)
-        val squareRadius = collider.size*0.5f+(collider.diagonal*percent)
+        val squareRadius = collider.halfSize*0.5f+(collider.diagonal*percent)
 
         return sqrt((collider.x - x).pow(2) + (collider.y - y).pow(2)) <  squareRadius + radius
     }
 
-    override fun collides(collider: Collider): Boolean = if (collider is CircleCollider) collides(collider) else collides(collider as SquareCollider)
+    override fun collides(collider: Collider): Boolean = if (collider is CircleCollider) collides(collider) else collides(collider as BoxCollider)
 
     override fun dispose() {
        CollisionSystem.remove(this)

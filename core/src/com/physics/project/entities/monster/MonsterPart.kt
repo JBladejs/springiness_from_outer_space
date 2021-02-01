@@ -40,7 +40,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         }
         x += vx * dt * speed
         y += vy * dt * speed
-        println(dt)
+
         collider.update(x,y)
         if(collider.isColliding){
             if(collider.tagHit == CollisionTag.ENEMY){
@@ -58,7 +58,6 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         val force = if (to) 1 else -1
         vx += force * pushForce * sin(direction) * dt
         vy += force * pushForce * cos(direction) * dt
-        println(dt)
     }
 
     private fun push(fromX: Float, fromY: Float) = move(fromX, fromY, false)
