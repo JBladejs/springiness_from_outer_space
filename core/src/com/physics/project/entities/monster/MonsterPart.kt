@@ -16,13 +16,14 @@ import com.physics.project.util.setColor
 internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float, var radius: Float, val color: Color = Color(10, 10, 240)) : Entity {
     companion object {
         private const val k = 0.001f
-        private const val pushForce = 0.01f
+        private const val pushForce = 1f
         private const val hitForce = 5f
         private const val speed = 10f
     }
 
     private var vx = 0f
     private var vy = 0f
+    private var dt = 0f
 
     val connections = Array<Spring>()
     private val collider = CircleCollider(x,y,radius,CollisionTag.ENEMY)
@@ -31,16 +32,15 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
 
     init { EntitySystem.add(this) }
 
-    //TODO: figure out a way to make the movement more framerate independent
-    //(move() is called more times when there's more frames so the speed actuate quicker)
     override fun update(delta: Float) {
+        dt = delta
         connections.forEach {
             vx = vx * Space.airResistance + calcForceX(it)
             vy = vy * Space.airResistance + calcForceY(it)
         }
-        x += vx * delta * speed
-        y += vy * delta * speed
-
+        x += vx * dt * speed
+        y += vy * dt * speed
+        println(dt)
         collider.update(x,y)
         if(collider.isColliding){
             if(collider.tagHit == CollisionTag.ENEMY){
@@ -53,12 +53,12 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         }
     }
 
-    //TODO: add delta here somehow
     private fun move(x: Float, y: Float, to: Boolean) {
-        val direction = atan2((x - this.x), (y - this.y))
+        val direction = atan2((x - this.x),(y - this.y))
         val force = if (to) 1 else -1
-        vx += force * pushForce * sin(direction)
-        vy += force * pushForce * cos(direction)
+        vx += force * pushForce * sin(direction) * dt
+        vy += force * pushForce * cos(direction) * dt
+        println(dt)
     }
 
     private fun push(fromX: Float, fromY: Float) = move(fromX, fromY, false)
