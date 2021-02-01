@@ -1,6 +1,7 @@
 package com.physics.project.collisions
 
 import com.badlogic.gdx.math.MathUtils
+import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -25,8 +26,8 @@ class CircleCollider(override var x: Float, override var y: Float, val radius: F
     private fun collides(collider: BoxCollider): Boolean {
         val angleToCirc = MathUtils.atan2(yHit - y, xHit - x)
         val angleDiffrences = (angleToCirc - (collider.rotation*(3.14f/180f)))%6.28f
-        val percent = MathUtils.sin(2f * angleDiffrences)
-        val squareRadius = collider.halfSize*0.5f+(collider.diagonal*percent)
+        val percent = abs(MathUtils.sin(2f * angleDiffrences))
+        val squareRadius = collider.halfSize*(1-percent)+(collider.diagonal*percent)
 
         return sqrt((collider.x - x).pow(2) + (collider.y - y).pow(2)) <  squareRadius + radius
     }
