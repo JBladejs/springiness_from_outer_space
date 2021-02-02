@@ -40,7 +40,7 @@ class Player(var x: Float, var y: Float) : Entity {
     private var shootTimer = 0f
     private val shootDelay = 1f
 
-    private val collider = CircleCollider(floorMod(x, Gdx.graphics.width), floorMod(y, Gdx.graphics.height), 50f, CollisionTag.PLAYER)
+    private val collider = CircleCollider(x % Gdx.graphics.width, y % Gdx.graphics.height, 50f, CollisionTag.PLAYER)
 
     init {
         println(floorMod(-5f,6))
@@ -103,7 +103,7 @@ class Player(var x: Float, var y: Float) : Entity {
 
     private fun shoot() {
         if (shootTimer <= 0) {
-            Bullet(floorMod(x , Gdx.graphics.width), floorMod(y, Gdx.graphics.height), degreesToRadians(rotation))
+            Bullet(x % Gdx.graphics.width, y % Gdx.graphics.height, degreesToRadians(rotation))
             
             shootTimer = shootDelay
         }
