@@ -43,6 +43,7 @@ class Player(var x: Float, var y: Float) : Entity {
     private val collider = CircleCollider(floorMod(x, Gdx.graphics.width), floorMod(y, Gdx.graphics.height), 50f, CollisionTag.PLAYER)
 
     init {
+        println(floorMod(-5f,6))
         EntitySystem.add(this)
         sprite.setSize(100f, 100f)
         centerX = sprite.width * 0.5f
@@ -100,10 +101,9 @@ class Player(var x: Float, var y: Float) : Entity {
         sprite.rotation = rotation
     }
 
-    //TODO: make shooting framerate independent
     private fun shoot() {
         if (shootTimer <= 0) {
-            Bullet(x % Gdx.graphics.width, y % Gdx.graphics.height, degreesToRadians(rotation))
+            Bullet(floorMod(x , Gdx.graphics.width), floorMod(y, Gdx.graphics.height), degreesToRadians(rotation))
             
             shootTimer = shootDelay
         }
