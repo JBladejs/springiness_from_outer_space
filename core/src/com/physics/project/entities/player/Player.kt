@@ -56,8 +56,8 @@ class Player(var x: Float, var y: Float) : Entity {
             val cos = cos(direction)
             if (Gdx.input.isKeyPressed(S)) {
 //                println(delta * stoppingSpeed)
-                vx *= 1f - delta
-                vy *= 1f - delta
+                vx += sin * Space.airResistance * delta * speed
+                vy -= cos * Space.airResistance * delta * speed
             } else {
                 vx -= sin * Space.airResistance * delta * speed
                 vy += cos * Space.airResistance * delta * speed
