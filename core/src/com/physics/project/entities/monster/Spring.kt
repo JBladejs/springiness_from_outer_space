@@ -15,6 +15,8 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
         private const val maxLength = 200f
     }
 
+    override val layer: Int = 1
+
     val relaxLength = 100f
     var length = 100f
     var teared = false

@@ -25,6 +25,8 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         private const val maxSpeed = 350f
     }
 
+    override val layer: Int = 2
+
     private var vx = 0f
     private var vy = 0f
     private var dt = 0f
@@ -37,6 +39,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     operator fun times(part: MonsterPart) = (x - part.x) * (x - part.x) + (y - part.y) * (y - part.y)
 
     init { EntitySystem.add(this) }
+
 
     override fun update(delta: Float) {
 

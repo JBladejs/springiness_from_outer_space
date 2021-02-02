@@ -11,9 +11,7 @@ object EntitySystem {
     fun dispose(entity: Entity) = entities.removeValue(entity, true)
 
     fun render(renderer: Renderer) {
-        for (i in (entities.size - 1) downTo 0) {
-            renderer.render(entities[i])
-        }
+        for (i in 0..3) entities.forEach { if (it.layer == i) renderer.render(it) }
     }
 
     fun update(delta: Float) = entities.forEach{ it.update(delta) }
