@@ -18,6 +18,7 @@ class GameScreen(private val game: SpringinessGame) : Screen {
 
     init {
         //TODO: Implement proper entity system
+        backgroundSprite.setSize(Gdx.graphics.width.toFloat(),Gdx.graphics.height.toFloat())
         val player = Player(600f, 600f)
         Monster(400f, 400f, player,30f, 5, 4)
     }
@@ -30,9 +31,9 @@ class GameScreen(private val game: SpringinessGame) : Screen {
     override fun render(delta: Float) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        backgroundSprite.setSize(Gdx.graphics.width.toFloat(),Gdx.graphics.height.toFloat())
-        backgroundSprite.draw(game.renderer.sprites)
+
         EntitySystem.render(game.renderer)
+        backgroundSprite.draw(game.renderer.sprites)
         update(delta)
     }
 

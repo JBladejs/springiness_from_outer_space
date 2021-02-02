@@ -20,7 +20,6 @@ class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
         const val radius = 10f
     }
 
-    //TODO: problem with shooting at some parts (probably ones that went through screen side)
     private val collider = CircleCollider(x, y, radius, CollisionTag.BULLET)
 
     init {
