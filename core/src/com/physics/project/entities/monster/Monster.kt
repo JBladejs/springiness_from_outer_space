@@ -1,5 +1,6 @@
 package com.physics.project.entities.monster
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
 import com.physics.project.graphics.Color
@@ -39,7 +40,7 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     private fun connect(part1: MonsterPart, part2: MonsterPart) = springs.add(Spring(part1, part2))
 
     override fun update(delta: Float) {
-        centralPart.move(player.x, player.y)
+        centralPart.move(player.x % Gdx.graphics.width, player.y % Gdx.graphics.height)
     }
 
     override fun render(renderer: Renderer) {

@@ -67,19 +67,31 @@ class Player(var x: Float, var y: Float) : Entity {
         x += vx * delta
         y += vy * delta
 
-        sprite.x = x - centerX
-        sprite.y = y - centerY
+        sprite.x = (x - centerX) % Gdx.graphics.width
+        sprite.y = (y - centerY) % Gdx.graphics.height
         sprite.rotation = rotation
     }
 
     fun shoot(){
         if(shootTimer <= 0) {
-            Bullet(x, y, degreesToRadians(rotation))
+            Bullet(x % Gdx.graphics.width, y % Gdx.graphics.height, degreesToRadians(rotation))
             shootTimer = shootDelay
         }
     }
 
     override fun render(renderer: Renderer) {
+        sprite.draw(renderer.sprites)
+        val modX = sprite.x
+        val modY = sprite.y
+        //TODO: decrease the number of renders
+        //TODO: refactor this
+        sprite.setPosition(modX - Gdx.graphics.width, modY)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX + Gdx.graphics.width, modY)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX, modY - Gdx.graphics.height)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX, modY + Gdx.graphics.height)
         sprite.draw(renderer.sprites)
     }
 

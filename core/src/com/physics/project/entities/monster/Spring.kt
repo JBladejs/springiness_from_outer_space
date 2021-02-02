@@ -1,11 +1,13 @@
 package com.physics.project.entities.monster
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.physics.project.graphics.Color
 import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
 import com.physics.project.util.setColor
+import kotlin.math.abs
 import kotlin.math.sqrt
 
 internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Entity {
@@ -38,9 +40,24 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
     }
 
     override fun render(renderer: Renderer) {
+        //TODO: Refactor all of this
         renderer.shapes.set(ShapeRenderer.ShapeType.Line)
         renderer.shapes.setColor(Color(255, 255, 255))
-        renderer.shapes.rectLine(part1.x, part1.y, part2.x, part2.y, 10f)
+        //TODO: There's gotta be a better way to do this...
+        val xa: Int = part1.x.toInt() / Gdx.graphics.width
+        val xb: Int = part2.x.toInt() / Gdx.graphics.width
+        val ya: Int = part1.y.toInt() / Gdx.graphics.height
+        val yb: Int = part2.y.toInt() / Gdx.graphics.height
+        var renderDiffX: Float = if (abs(xa) > abs(xb)) xb.toFloat() else xa.toFloat()
+        var renderDiffY: Float = if (abs(ya) > abs(yb)) yb.toFloat() else ya.toFloat()
+        renderDiffX *= Gdx.graphics.width
+        renderDiffY *= Gdx.graphics.height
+        //TODO: decrease the number of renders
+        renderer.shapes.rectLine(part1.x - renderDiffX, part1.y - renderDiffY, part2.x - renderDiffX, part2.y - renderDiffY, 10f)
+        renderer.shapes.rectLine(part1.x - renderDiffX - Gdx.graphics.width, part1.y - renderDiffY, part2.x - renderDiffX - Gdx.graphics.width, part2.y - renderDiffY, 10f)
+        renderer.shapes.rectLine(part1.x - renderDiffX + Gdx.graphics.width, part1.y - renderDiffY, part2.x - renderDiffX + Gdx.graphics.width, part2.y - renderDiffY, 10f)
+        renderer.shapes.rectLine(part1.x - renderDiffX, part1.y - renderDiffY - Gdx.graphics.height, part2.x - renderDiffX, part2.y - renderDiffY - Gdx.graphics.height, 10f)
+        renderer.shapes.rectLine(part1.x - renderDiffX, part1.y + renderDiffY + Gdx.graphics.height, part2.x - renderDiffX, part2.y - renderDiffY + Gdx.graphics.height, 10f)
     }
 
     override fun dispose() {

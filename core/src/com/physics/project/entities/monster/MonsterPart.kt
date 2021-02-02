@@ -1,5 +1,6 @@
 package com.physics.project.entities.monster
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
@@ -45,7 +46,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         x += vx * dt * speed
         y += vy * dt * speed
 
-        collider.update(x,y)
+        collider.update(x % Gdx.graphics.width,y % Gdx.graphics.height)
         if(collider.isColliding){
             if(collider.tagHit == CollisionTag.ENEMY){
                 push(collider.xHit,collider.yHit)
@@ -58,7 +59,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     }
 
     private fun move(x: Float, y: Float, to: Boolean) {
-        val direction = atan2((x - this.x),(y - this.y))
+        val direction = atan2((x - collider.x),(y - collider.y))
         val force = if (to) 1 else -1
         vx += force * pushForce * sin(direction) * dt
         vy += force * pushForce * cos(direction) * dt
@@ -69,7 +70,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     fun move(toX: Float, toY: Float) = move(toX, toY, true)
 
     private fun hit(x: Float, y: Float) {
-        val direction = atan2((x - this.x), (y - this.y))
+        val direction = atan2((x - collider.x), (y - collider.y))
         vx -= hitForce * sin(direction)
         vy -= hitForce * cos(direction)
     }
@@ -89,7 +90,13 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     override fun render(renderer: Renderer) {
         renderer.shapes.set(ShapeRenderer.ShapeType.Filled)
         renderer.shapes.setColor(color)
-        renderer.shapes.circle(x, y, radius)
+        val modX = x % Gdx.graphics.width
+        val modY = y % Gdx.graphics.height
+        renderer.shapes.circle(modX, modY, radius)
+        renderer.shapes.circle(modX - Gdx.graphics.width, modY, radius)
+        renderer.shapes.circle(modX + Gdx.graphics.width, modY, radius)
+        renderer.shapes.circle(modX, modY - Gdx.graphics.height, radius)
+        renderer.shapes.circle(modX, modY + Gdx.graphics.height, radius)
     }
 
     override fun dispose() {

@@ -17,7 +17,7 @@ class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
     private val vy: Float
 
     companion object{
-        val radius = 10f
+        const val radius = 10f
     }
 
     private val collider = CircleCollider(x, y, radius, CollisionTag.BULLET)
