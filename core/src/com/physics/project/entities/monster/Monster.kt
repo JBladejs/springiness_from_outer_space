@@ -26,7 +26,6 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
         EntitySystem.add(this)
         parts.add(centralPart)          //Dodawanie kolejnych części do tablicy następuje poziomami długości tzn. pierwsze są te najbliżej głowy później te trochę dalej itd.
         centralPart.isHead = true
-        //TODO: add some random element to part generation
         for (i in 0 until tentacleLength) {
             for (j in 1..tentacleAmount) {
                 val currentLengthSize = startingSize * ((tentacleLength - i - 1).toFloat() / tentacleLength) + (minSize * ((i + 1f) / tentacleLength))
