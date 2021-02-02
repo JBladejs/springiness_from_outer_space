@@ -16,7 +16,7 @@ class GameScreen(private val game: SpringinessGame) : Screen {
 
     init {
         //TODO: Implement proper entity system
-        val player = Player(500f, 500f)
+        val player = Player(600f, 600f)
         Monster(400f, 400f, player,30f, 5, 4)
     }
 
