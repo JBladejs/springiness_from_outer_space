@@ -13,6 +13,7 @@ import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
 import com.physics.project.util.fMod
 import com.physics.project.util.setColor
+import kotlin.math.abs
 
 
 internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float, var radius: Float, val color: Color = Color(10, 10, 240)) : Entity {
@@ -21,6 +22,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         private const val pushForce = 1f
         private const val hitForce = 5f
         private const val speed = 40f
+        private const val maxSpeed = 350f
     }
 
     private var vx = 0f
@@ -43,6 +45,12 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
             vx = vx * Space.airResistance + calcForceX(it)
             vy = vy * Space.airResistance + calcForceY(it)
         }
+
+        if (abs(vx) >= maxSpeed)
+            vx = if (vx > 0) maxSpeed else maxSpeed
+        if (abs(vy) >= maxSpeed)
+            vy = if (vy > 0) maxSpeed else maxSpeed
+
         x += vx * dt * speed
         y += vy * dt * speed
 
