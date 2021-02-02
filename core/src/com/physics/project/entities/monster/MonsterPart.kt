@@ -18,7 +18,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         private const val k = 0.001f
         private const val pushForce = 1f
         private const val hitForce = 5f
-        private const val speed = 10f
+        private const val speed = 40f
     }
 
     private var vx = 0f
@@ -33,6 +33,10 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     init { EntitySystem.add(this) }
 
     override fun update(delta: Float) {
+        if(connections.isEmpty){
+            this.dispose()
+        }
+
         dt = delta
         connections.forEach {
             vx = vx * Space.airResistance + calcForceX(it)
