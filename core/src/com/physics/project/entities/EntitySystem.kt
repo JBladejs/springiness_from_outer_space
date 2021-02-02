@@ -10,7 +10,11 @@ object EntitySystem {
 
     fun dispose(entity: Entity) = entities.removeValue(entity, true)
 
-    fun render(renderer: Renderer) = entities.forEach { renderer.render(it) }
+    fun render(renderer: Renderer) {
+        for (i in (entities.size - 1) downTo 0) {
+            renderer.render(entities[i])
+        }
+    }
 
     fun update(delta: Float) = entities.forEach{ it.update(delta) }
 
