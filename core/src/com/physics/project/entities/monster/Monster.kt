@@ -10,9 +10,9 @@ import com.physics.project.entities.player.Player
 import com.physics.project.graphics.Renderer
 
 class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tentacleAmount: Int, tentacleLength: Int) : Entity {
-    val x: Float
+    private val x: Float
         get() = centralPart.x
-    val y: Float
+    private val y: Float
         get() = centralPart.y
 
     private val centralPart = MonsterPart(this, x, y, startingSize, Color(240, 10, 10))
