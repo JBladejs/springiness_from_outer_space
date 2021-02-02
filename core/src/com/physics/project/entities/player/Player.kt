@@ -2,6 +2,7 @@ package com.physics.project.entities.player
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input.Keys.*
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.MathUtils.*
@@ -27,7 +28,7 @@ class Player(var x: Float, var y: Float) : Entity {
     private var vx = 0f
     private var vy = 0f
 
-    private var hp = 10
+    private var hp = 10f
     private var damagetimer = 0f
     private val damageDelay = 1f
 
@@ -81,6 +82,7 @@ class Player(var x: Float, var y: Float) : Entity {
         if (collider.isColliding && collider.tagHit == CollisionTag.ENEMY && damagetimer <= 0) {
             damagetimer = damageDelay
             if (--hp <= 0) Gdx.app.exit()
+            collider.isColliding = false
         }
 
         sprite.x = (x - centerX) % Gdx.graphics.width
@@ -110,6 +112,12 @@ class Player(var x: Float, var y: Float) : Entity {
         sprite.draw(renderer.sprites)
         sprite.setPosition(modX, modY + Gdx.graphics.height)
         sprite.draw(renderer.sprites)
+
+        //TODO: make normal HUD
+        renderer.shapes.setColor(Color.DARK_GRAY)
+        renderer.shapes.rect(50f,50f,500f,20f)
+        renderer.shapes.setColor(Color.RED)
+        renderer.shapes.rect(50f,50f,50f * hp,20f)
     }
 
     override fun dispose() {
