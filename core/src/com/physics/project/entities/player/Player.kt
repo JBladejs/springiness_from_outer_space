@@ -27,6 +27,9 @@ class Player(var x: Float, var y: Float) : Entity {
     private var vx = 0f
     private var vy = 0f
 
+    private var shootTimer = 0
+    private val shootDelay = 30
+
     init {
         EntitySystem.add(this)
         sprite.setSize(100f, 100f)
@@ -53,7 +56,13 @@ class Player(var x: Float, var y: Float) : Entity {
 
         if (Gdx.input.isKeyPressed(A)) rotation += rotationSpeed * delta
         if (Gdx.input.isKeyPressed(D)) rotation -= rotationSpeed * delta
-        if (Gdx.input.isKeyPressed(SPACE)) Bullet(x, y, degreesToRadians(rotation))
+        if (Gdx.input.isKeyPressed(SPACE)) {
+            shoot()
+        }
+
+        if(shootTimer > 0){
+            shootTimer--
+        }
 
         x += vx * delta
         y += vy * delta
@@ -61,6 +70,13 @@ class Player(var x: Float, var y: Float) : Entity {
         sprite.x = x - centerX
         sprite.y = y - centerY
         sprite.rotation = rotation
+    }
+
+    fun shoot(){
+        if(shootTimer <= 0) {
+            Bullet(x, y, degreesToRadians(rotation))
+            shootTimer = shootDelay
+        }
     }
 
     override fun render(renderer: Renderer) {
