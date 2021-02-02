@@ -102,6 +102,7 @@ class Player(var x: Float, var y: Float) : Entity {
     private fun shoot() {
         if (shootTimer <= 0) {
             Bullet(x % Gdx.graphics.width, y % Gdx.graphics.height, degreesToRadians(rotation))
+            
             shootTimer = shootDelay
         }
     }
@@ -119,6 +120,14 @@ class Player(var x: Float, var y: Float) : Entity {
         sprite.setPosition(modX, modY - Gdx.graphics.height)
         sprite.draw(renderer.sprites)
         sprite.setPosition(modX, modY + Gdx.graphics.height)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX - Gdx.graphics.width, modY - Gdx.graphics.height)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX + Gdx.graphics.width, modY - Gdx.graphics.height)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX - Gdx.graphics.width, modY + Gdx.graphics.height)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX + Gdx.graphics.width, modY + Gdx.graphics.height)
         sprite.draw(renderer.sprites)
 
         //TODO: make normal HUD
