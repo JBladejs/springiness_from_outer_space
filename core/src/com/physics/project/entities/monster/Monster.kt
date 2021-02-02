@@ -44,7 +44,7 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
                 it.isHead = true
             }
         }
-/*
+        /*
         headlessParts[0].isHead = true
         for (i in 1..headlessParts.size){
             if(!checkHeadConnection(headlessParts[i])){

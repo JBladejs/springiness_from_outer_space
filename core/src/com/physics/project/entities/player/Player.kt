@@ -28,11 +28,11 @@ class Player(var x: Float, var y: Float) : Entity {
     private var vy = 0f
 
     private var hp = 10
-    private var damagetimer = 0
-    private val damageDelay = 30
+    private var damagetimer = 0f
+    private val damageDelay = 1f
 
-    private var shootTimer = 0
-    private val shootDelay = 30
+    private var shootTimer = 0f
+    private val shootDelay = 1f
 
     private val collider = CircleCollider(x % Gdx.graphics.width, y % Gdx.graphics.height, 50f, CollisionTag.PLAYER)
 
@@ -67,7 +67,7 @@ class Player(var x: Float, var y: Float) : Entity {
         }
 
         if(shootTimer > 0){
-            shootTimer--
+            shootTimer -= delta
         }
 
         x += vx * delta
@@ -76,7 +76,7 @@ class Player(var x: Float, var y: Float) : Entity {
         collider.update(x % Gdx.graphics.width, y % Gdx.graphics.height)
 
         //TODO: Make damage timer framerate independent
-        if (damagetimer > 0) damagetimer--
+        if (damagetimer > 0) damagetimer -= delta
 
         if (collider.isColliding && collider.tagHit == CollisionTag.ENEMY && damagetimer <= 0) {
             damagetimer = damageDelay

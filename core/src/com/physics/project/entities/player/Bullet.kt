@@ -20,7 +20,7 @@ class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
         const val radius = 10f
     }
 
-    private val collider = CircleCollider(x, y, radius, CollisionTag.BULLET)
+    private val collider = CircleCollider(x % Gdx.graphics.width, y % Gdx.graphics.height, radius, CollisionTag.BULLET)
 
     init {
         EntitySystem.add(this)
