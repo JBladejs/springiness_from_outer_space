@@ -11,6 +11,7 @@ import com.physics.project.graphics.Renderer
 import com.physics.project.util.fMod
 
 class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tentacleAmount: Int, tentacleLength: Int) : Entity {
+    override val layer: Int = -1
     private val x: Float
         get() = centralPart.x
     private val y: Float

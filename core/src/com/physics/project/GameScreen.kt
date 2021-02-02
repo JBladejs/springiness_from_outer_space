@@ -30,9 +30,9 @@ class GameScreen(private val game: SpringinessGame) : Screen {
     override fun render(delta: Float) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        EntitySystem.render(game.renderer)
         backgroundSprite.setSize(Gdx.graphics.width.toFloat(),Gdx.graphics.height.toFloat())
         backgroundSprite.draw(game.renderer.sprites)
-        EntitySystem.render(game.renderer)
         update(delta)
     }
 

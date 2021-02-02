@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys.*
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.*
 import com.physics.project.Space
 import com.physics.project.collisions.CircleCollider
@@ -24,6 +25,8 @@ class Player(var x: Float, var y: Float) : Entity {
         private const val stoppingSpeed = 60f
         private const val maxSpeed = 300f
     }
+
+    override val layer: Int = 3
 
     //TODO: investigate libGDX internal Asset Manager
     private val sprite = Sprite(Texture("spaceship.png"))
@@ -108,6 +111,18 @@ class Player(var x: Float, var y: Float) : Entity {
     }
 
     override fun render(renderer: Renderer) {
+        //TODO: make normal HUD
+        renderer.shapes.set(ShapeRenderer.ShapeType.Filled)
+        renderer.shapes.setColor(Color.DARK_GRAY)
+        for (i in 0..9)
+            renderer.shapes.rect(50f + (25f * i), 50f, 20f, 20f)
+        renderer.shapes.rect(50f, 75f, 100f, 20f)
+        renderer.shapes.setColor(Color.RED)
+        for (i in 0..hp - 1)
+            renderer.shapes.rect(50f + (25f * i), 50f, 20f, 20f)
+        renderer.shapes.setColor(Color.WHITE)
+        renderer.shapes.rect(50f, 75f, 100f * (1 - shootTimer), 20f)
+
         sprite.draw(renderer.sprites)
         val modX = sprite.x
         val modY = sprite.y
@@ -129,17 +144,6 @@ class Player(var x: Float, var y: Float) : Entity {
         sprite.draw(renderer.sprites)
         sprite.setPosition(modX + Gdx.graphics.width, modY + Gdx.graphics.height)
         sprite.draw(renderer.sprites)
-
-        //TODO: make normal HUD
-        renderer.shapes.setColor(Color.DARK_GRAY)
-        for (i in 0..9)
-            renderer.shapes.rect(50f + (25f * i), 50f, 20f, 20f)
-        renderer.shapes.rect(50f, 75f, 100f, 20f)
-        renderer.shapes.setColor(Color.RED)
-        for (i in 0..hp - 1)
-            renderer.shapes.rect(50f + (25f * i), 50f, 20f, 20f)
-        renderer.shapes.setColor(Color.WHITE)
-        renderer.shapes.rect(50f, 75f, 100f * (1 - shootTimer), 20f)
     }
 
     override fun dispose() {

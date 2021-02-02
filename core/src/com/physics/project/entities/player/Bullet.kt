@@ -16,6 +16,8 @@ class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
     private val vx: Float
     private val vy: Float
 
+    override val layer: Int = 0
+
     companion object{
         const val radius = 10f
     }
