@@ -13,13 +13,16 @@ import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
 import com.physics.project.util.degreesToRadians
+import kotlin.math.abs
 
 class Player(var x: Float, var y: Float) : Entity {
     companion object {
         private const val speed = 200f
         private const val rotationSpeed = 100f
         private const val stoppingSpeed = 60f
+        private const val maxSpeed = 300f
     }
+
     //TODO: investigate libGDX internal Asset Manager
     private val sprite = Sprite(Texture("spaceship.png"))
     private val centerX: Float
@@ -67,9 +70,14 @@ class Player(var x: Float, var y: Float) : Entity {
             shoot()
         }
 
-        if(shootTimer > 0){
+        if (shootTimer > 0) {
             shootTimer -= delta
         }
+
+        if (abs(vx) >= maxSpeed)
+            vx = if (vx > 0) maxSpeed else -maxSpeed
+        if (abs(vy) >= maxSpeed)
+            vy = if (vy > 0) maxSpeed else -maxSpeed
 
         x += vx * delta
         y += vy * delta
@@ -91,8 +99,8 @@ class Player(var x: Float, var y: Float) : Entity {
     }
 
     //TODO: make shooting framerate independent
-    private fun shoot(){
-        if(shootTimer <= 0) {
+    private fun shoot() {
+        if (shootTimer <= 0) {
             Bullet(x % Gdx.graphics.width, y % Gdx.graphics.height, degreesToRadians(rotation))
             shootTimer = shootDelay
         }
@@ -115,14 +123,14 @@ class Player(var x: Float, var y: Float) : Entity {
 
         //TODO: make normal HUD
         renderer.shapes.setColor(Color.DARK_GRAY)
-        for(i in 0..9)
-        renderer.shapes.rect(50f + (25f*i),50f,20f,20f)
-        renderer.shapes.rect(50f,75f,100f,20f)
+        for (i in 0..9)
+            renderer.shapes.rect(50f + (25f * i), 50f, 20f, 20f)
+        renderer.shapes.rect(50f, 75f, 100f, 20f)
         renderer.shapes.setColor(Color.RED)
-        for(i in 0..hp-1)
-        renderer.shapes.rect(50f + (25f*i),50f,20f,20f)
+        for (i in 0..hp - 1)
+            renderer.shapes.rect(50f + (25f * i), 50f, 20f, 20f)
         renderer.shapes.setColor(Color.WHITE)
-        renderer.shapes.rect(50f,75f,100f * (1-shootTimer),20f)
+        renderer.shapes.rect(50f, 75f, 100f * (1 - shootTimer), 20f)
     }
 
     override fun dispose() {

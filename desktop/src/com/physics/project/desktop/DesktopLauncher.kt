@@ -6,7 +6,7 @@ import com.physics.project.SpringinessGame
 
 object DesktopLauncher {
     @JvmStatic
-    fun main(arg: Array<String>) {
+    fun main(arag: Array<String>) {
         val config = LwjglApplicationConfiguration()
         with(config) {
             title = "Springiness From Outer Space"
