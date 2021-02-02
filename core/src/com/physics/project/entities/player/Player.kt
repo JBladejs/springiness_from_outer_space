@@ -28,7 +28,7 @@ class Player(var x: Float, var y: Float) : Entity {
     private var vx = 0f
     private var vy = 0f
 
-    private var hp = 10f
+    private var hp = 10
     private var damagetimer = 0f
     private val damageDelay = 1f
 
@@ -115,9 +115,14 @@ class Player(var x: Float, var y: Float) : Entity {
 
         //TODO: make normal HUD
         renderer.shapes.setColor(Color.DARK_GRAY)
-        renderer.shapes.rect(50f,50f,500f,20f)
+        for(i in 0..9)
+        renderer.shapes.rect(50f + (25f*i),50f,20f,20f)
+        renderer.shapes.rect(50f,75f,100f,20f)
         renderer.shapes.setColor(Color.RED)
-        renderer.shapes.rect(50f,50f,50f * hp,20f)
+        for(i in 0..hp-1)
+        renderer.shapes.rect(50f + (25f*i),50f,20f,20f)
+        renderer.shapes.setColor(Color.WHITE)
+        renderer.shapes.rect(50f,75f,100f * (1-shootTimer),20f)
     }
 
     override fun dispose() {
