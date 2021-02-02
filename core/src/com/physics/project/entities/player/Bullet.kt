@@ -21,7 +21,7 @@ class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
     }
 
     //TODO: problem with shooting at some parts (probably ones that went through screen side)
-    private val collider = CircleCollider(x % Gdx.graphics.width, y % Gdx.graphics.height, radius, CollisionTag.BULLET)
+    private val collider = CircleCollider(x, y, radius, CollisionTag.BULLET)
 
     init {
         EntitySystem.add(this)
