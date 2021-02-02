@@ -37,25 +37,27 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     }
 
     fun createHeads(){
-        var headlessParts = Array<MonsterPart>()
+        //var headlessParts = Array<MonsterPart>()
         parts.forEach{
             if(!checkHeadConnection(it)){
-                headlessParts.add(it)
+                //headlessParts.add(it)
+                it.isHead = true
             }
         }
-
+/*
         headlessParts[0].isHead = true
         for (i in 1..headlessParts.size){
             if(!checkHeadConnection(headlessParts[i])){
                 headlessParts[i].isHead = true
                 break
             }
-        }
+        }*/
     }
 
     private fun checkHeadConnection(part: MonsterPart): Boolean{
         var headFound = part.isHead
-        for (i in 0..part.connections.size){
+        if(!part.connections.isEmpty)
+        for (i in 0..part.connections.size-1){
             if(headFound){
                 break
             }
@@ -63,15 +65,16 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
                 headFound = true
             }
             else{
-               checkHeadConnection( part.connections[i].getOtherPart(part), part )
+                headFound = checkHeadConnection( part.connections[i].getOtherPart(part), part )
             }
         }
         return headFound
     }
 
     private fun checkHeadConnection(part: MonsterPart, without: MonsterPart): Boolean{
-        var headFound = part.isHead
-        for (i in 0..part.connections.size){
+        var headFound = false
+        if(!part.connections.isEmpty)
+        for (i in 0..part.connections.size-1){
             if (headFound) {
                 break
             }
@@ -79,7 +82,7 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
                 if (part.connections[i].getOtherPart(part).isHead) {
                     headFound = true
                 } else {
-                    checkHeadConnection(part.connections[i].getOtherPart(part), part)
+                    headFound = checkHeadConnection(part.connections[i].getOtherPart(part), part)
                 }
             }
         }
@@ -91,7 +94,11 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     private fun connect(part1: MonsterPart, part2: MonsterPart) = springs.add(Spring(part1, part2))
 
     override fun update(delta: Float) {
-        centralPart.move(player.x % Gdx.graphics.width, player.y % Gdx.graphics.height)
+        //centralPart.move(player.x % Gdx.graphics.width, player.y % Gdx.graphics.height)
+        parts.forEach {
+            if(it.isHead)
+                it.move(player.x % Gdx.graphics.width, player.y % Gdx.graphics.height)
+        }
     }
 
 

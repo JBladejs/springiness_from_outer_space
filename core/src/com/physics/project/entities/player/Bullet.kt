@@ -34,7 +34,7 @@ class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
         y += vy * delta
         collider.update(x, y)
         if(collider.isColliding){
-            println(collider.tagHit)
+            //println(collider.tagHit)
             if(collider.tagHit == CollisionTag.ENEMY){
                 dispose()
             }

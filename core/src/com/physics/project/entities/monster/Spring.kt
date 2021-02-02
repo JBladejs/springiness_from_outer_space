@@ -36,9 +36,9 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
         if (length > maxLength) {
             part1.connections.removeValue(this, true)
             part2.connections.removeValue(this, true)
-
             //teared = true
             dispose()
+            part1.startHeadCreation()
         }
     }
 

@@ -37,7 +37,6 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
 
     override fun update(delta: Float) {
 
-
         dt = delta
         connections.forEach {
             vx = vx * Space.airResistance + calcForceX(it)
@@ -60,6 +59,10 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
             collider.isColliding = false
         }
 
+    }
+
+    fun startHeadCreation(){
+        this.monster.createHeads()
     }
 
     private fun move(x: Float, y: Float, to: Boolean) {
