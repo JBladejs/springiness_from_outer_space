@@ -27,7 +27,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     private var dt = 0f
 
     val connections = Array<Spring>()
-    private val collider = CircleCollider(x,y,radius,CollisionTag.ENEMY)
+    private val collider = CircleCollider(x % Gdx.graphics.width,y % Gdx.graphics.height,radius,CollisionTag.ENEMY)
 
     var isHead = false
 

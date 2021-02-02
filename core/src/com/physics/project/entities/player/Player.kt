@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.math.MathUtils.*
 import com.physics.project.Space
-import com.physics.project.collisions.BoxCollider
+import com.physics.project.collisions.CircleCollider
 import com.physics.project.collisions.CollisionTag
 import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
@@ -27,8 +27,14 @@ class Player(var x: Float, var y: Float) : Entity {
     private var vx = 0f
     private var vy = 0f
 
+    private var hp = 10
+    private var damagetimer = 0
+    private val damageDelay = 30
+
     private var shootTimer = 0
     private val shootDelay = 30
+
+    private val collider = CircleCollider(x % Gdx.graphics.width, y % Gdx.graphics.height, 50f, CollisionTag.PLAYER)
 
     init {
         EntitySystem.add(this)
@@ -67,12 +73,23 @@ class Player(var x: Float, var y: Float) : Entity {
         x += vx * delta
         y += vy * delta
 
+        collider.update(x % Gdx.graphics.width, y % Gdx.graphics.height)
+
+        //TODO: Make damage timer framerate independent
+        if (damagetimer > 0) damagetimer--
+
+        if (collider.isColliding && collider.tagHit == CollisionTag.ENEMY && damagetimer <= 0) {
+            damagetimer = damageDelay
+            if (--hp <= 0) Gdx.app.exit()
+        }
+
         sprite.x = (x - centerX) % Gdx.graphics.width
         sprite.y = (y - centerY) % Gdx.graphics.height
         sprite.rotation = rotation
     }
 
-    fun shoot(){
+    //TODO: make shooting framerate independent
+    private fun shoot(){
         if(shootTimer <= 0) {
             Bullet(x % Gdx.graphics.width, y % Gdx.graphics.height, degreesToRadians(rotation))
             shootTimer = shootDelay
