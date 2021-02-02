@@ -13,11 +13,13 @@ import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
 import com.physics.project.util.degreesToRadians
+import com.physics.project.util.floorMod
 import kotlin.math.abs
 
 class Player(var x: Float, var y: Float) : Entity {
     companion object {
         private const val speed = 200f
+
         private const val rotationSpeed = 100f
         private const val stoppingSpeed = 60f
         private const val maxSpeed = 300f
@@ -38,7 +40,7 @@ class Player(var x: Float, var y: Float) : Entity {
     private var shootTimer = 0f
     private val shootDelay = 1f
 
-    private val collider = CircleCollider(x % Gdx.graphics.width, y % Gdx.graphics.height, 50f, CollisionTag.PLAYER)
+    private val collider = CircleCollider(floorMod(x, Gdx.graphics.width), floorMod(y, Gdx.graphics.height), 50f, CollisionTag.PLAYER)
 
     init {
         EntitySystem.add(this)

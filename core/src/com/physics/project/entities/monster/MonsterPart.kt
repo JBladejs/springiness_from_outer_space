@@ -11,6 +11,7 @@ import com.physics.project.collisions.CollisionTag
 import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
+import com.physics.project.util.floorMod
 import com.physics.project.util.setColor
 
 
@@ -27,7 +28,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     private var dt = 0f
 
     val connections = Array<Spring>()
-    private val collider = CircleCollider(x % Gdx.graphics.width,y % Gdx.graphics.height,radius,CollisionTag.ENEMY)
+    private val collider = CircleCollider(floorMod(x, Gdx.graphics.width), floorMod(y, Gdx.graphics.height),radius,CollisionTag.ENEMY)
 
     var isHead = false
 
