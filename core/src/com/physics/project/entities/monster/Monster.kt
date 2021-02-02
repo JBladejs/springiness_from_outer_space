@@ -8,6 +8,7 @@ import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
 import com.physics.project.entities.player.Player
 import com.physics.project.graphics.Renderer
+import com.physics.project.util.fMod
 
 class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tentacleAmount: Int, tentacleLength: Int) : Entity {
     private val x: Float
@@ -94,10 +95,10 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     private fun connect(part1: MonsterPart, part2: MonsterPart) = springs.add(Spring(part1, part2))
 
     override fun update(delta: Float) {
-        //centralPart.move(player.x % Gdx.graphics.width, player.y % Gdx.graphics.height)
+        //centralPart.move(player.x fMod Gdx.graphics.width, player.y fMod Gdx.graphics.height)
         parts.forEach {
             if(it.isHead)
-                it.move(player.x % Gdx.graphics.width, player.y % Gdx.graphics.height)
+                it.move(player.x fMod Gdx.graphics.width, player.y fMod Gdx.graphics.height)
         }
     }
 

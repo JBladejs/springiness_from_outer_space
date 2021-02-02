@@ -1,6 +1,7 @@
 package com.physics.project.collisions
 
 import com.badlogic.gdx.math.MathUtils.*
+import com.physics.project.util.fMod
 import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -27,7 +28,7 @@ class BoxCollider(override var x: Float, override var y: Float, var width: Float
 
     private fun collides(collider: CircleCollider): Boolean {
         val angleToCirc = atan2(yHit - y,xHit - x)
-        val angleDiffrences = (angleToCirc - rotation)%6.28f
+        val angleDiffrences = (angleToCirc - rotation) fMod 6.28f
         val percent = abs(sin(2f*angleDiffrences))
         halfSize = 0.5f* abs((width*cos(angleDiffrences)) + (height*sin(angleDiffrences)))
         val squareRadius = (halfSize*(1-percent)) + (diagonal*percent)

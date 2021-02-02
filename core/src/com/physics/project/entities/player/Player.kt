@@ -13,7 +13,7 @@ import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
 import com.physics.project.util.degreesToRadians
-import com.physics.project.util.floorMod
+import com.physics.project.util.fMod
 import kotlin.math.abs
 
 class Player(var x: Float, var y: Float) : Entity {
@@ -40,10 +40,9 @@ class Player(var x: Float, var y: Float) : Entity {
     private var shootTimer = 0f
     private val shootDelay = 1f
 
-    private val collider = CircleCollider(x % Gdx.graphics.width, y % Gdx.graphics.height, 50f, CollisionTag.PLAYER)
+    private val collider = CircleCollider(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height, 50f, CollisionTag.PLAYER)
 
     init {
-        println(floorMod(-5f,6))
         EntitySystem.add(this)
         sprite.setSize(100f, 100f)
         centerX = sprite.width * 0.5f
@@ -85,7 +84,7 @@ class Player(var x: Float, var y: Float) : Entity {
         x += vx * delta
         y += vy * delta
 
-        collider.update(x % Gdx.graphics.width, y % Gdx.graphics.height)
+        collider.update(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height)
 
         //TODO: Make damage timer framerate independent
         if (damagetimer > 0) damagetimer -= delta
@@ -96,14 +95,14 @@ class Player(var x: Float, var y: Float) : Entity {
             collider.isColliding = false
         }
 
-        sprite.x = (x - centerX) % Gdx.graphics.width
-        sprite.y = (y - centerY) % Gdx.graphics.height
+        sprite.x = (x - centerX) fMod Gdx.graphics.width
+        sprite.y = (y - centerY) fMod Gdx.graphics.height
         sprite.rotation = rotation
     }
 
     private fun shoot() {
         if (shootTimer <= 0) {
-            Bullet(x % Gdx.graphics.width, y % Gdx.graphics.height, degreesToRadians(rotation))
+            Bullet(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height, degreesToRadians(rotation))
             
             shootTimer = shootDelay
         }

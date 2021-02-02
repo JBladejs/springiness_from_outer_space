@@ -11,7 +11,7 @@ import com.physics.project.collisions.CollisionTag
 import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
-import com.physics.project.util.floorMod
+import com.physics.project.util.fMod
 import com.physics.project.util.setColor
 
 
@@ -28,7 +28,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     private var dt = 0f
 
     val connections = Array<Spring>()
-    private val collider = CircleCollider(x % Gdx.graphics.width, y % Gdx.graphics.height,radius,CollisionTag.ENEMY)
+    private val collider = CircleCollider(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height,radius,CollisionTag.ENEMY)
 
     var isHead = false
 
@@ -46,7 +46,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         x += vx * dt * speed
         y += vy * dt * speed
 
-        collider.update(x % Gdx.graphics.width,y % Gdx.graphics.height)
+        collider.update(x fMod Gdx.graphics.width,y fMod Gdx.graphics.height)
         if(collider.isColliding){
             if(collider.tagHit == CollisionTag.ENEMY){
                 push(collider.xHit,collider.yHit)
@@ -101,8 +101,8 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
             renderer.shapes.setColor(Color(240,10,10))
         else
             renderer.shapes.setColor(Color(10, 10, 240))
-        val modX = x % Gdx.graphics.width
-        val modY = y % Gdx.graphics.height
+        val modX = x fMod Gdx.graphics.width
+        val modY = y fMod Gdx.graphics.height
         renderer.shapes.circle(modX, modY, radius)
         renderer.shapes.circle(modX - Gdx.graphics.width, modY, radius)
         renderer.shapes.circle(modX + Gdx.graphics.width, modY, radius)
