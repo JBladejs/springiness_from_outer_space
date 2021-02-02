@@ -38,7 +38,7 @@ class Player(var x: Float, var y: Float) : Entity {
     private val damageDelay = 1f
 
     private var shootTimer = 0f
-    private val shootDelay = 1f
+    private val shootDelay = 0.4f
 
     private val collider = CircleCollider(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height, 50f, CollisionTag.PLAYER)
 
@@ -86,7 +86,6 @@ class Player(var x: Float, var y: Float) : Entity {
 
         collider.update(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height)
 
-        //TODO: Make damage timer framerate independent
         if (damagetimer > 0) damagetimer -= delta
 
         if (collider.isColliding && collider.tagHit == CollisionTag.ENEMY && damagetimer <= 0) {
