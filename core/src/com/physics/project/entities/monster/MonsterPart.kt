@@ -107,6 +107,11 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         renderer.shapes.circle(modX + Gdx.graphics.width, modY, radius)
         renderer.shapes.circle(modX, modY - Gdx.graphics.height, radius)
         renderer.shapes.circle(modX, modY + Gdx.graphics.height, radius)
+        renderer.shapes.circle(modX - Gdx.graphics.width, modY - Gdx.graphics.height, radius)
+        renderer.shapes.circle(modX + Gdx.graphics.width, modY - Gdx.graphics.height, radius)
+        renderer.shapes.circle(modX - Gdx.graphics.width, modY + Gdx.graphics.height, radius)
+        renderer.shapes.circle(modX + Gdx.graphics.width, modY + Gdx.graphics.height, radius)
+
     }
 
     override fun dispose() {

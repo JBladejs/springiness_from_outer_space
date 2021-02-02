@@ -61,6 +61,10 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
         renderer.shapes.rectLine(part1.x - renderDiffX + Gdx.graphics.width, part1.y - renderDiffY, part2.x - renderDiffX + Gdx.graphics.width, part2.y - renderDiffY, 10f)
         renderer.shapes.rectLine(part1.x - renderDiffX, part1.y - renderDiffY - Gdx.graphics.height, part2.x - renderDiffX, part2.y - renderDiffY - Gdx.graphics.height, 10f)
         renderer.shapes.rectLine(part1.x - renderDiffX, part1.y + renderDiffY + Gdx.graphics.height, part2.x - renderDiffX, part2.y - renderDiffY + Gdx.graphics.height, 10f)
+        renderer.shapes.rectLine(part1.x - renderDiffX - Gdx.graphics.width, part1.y - renderDiffY - Gdx.graphics.height, part2.x - renderDiffX - Gdx.graphics.width, part2.y - renderDiffY - Gdx.graphics.height, 10f)
+        renderer.shapes.rectLine(part1.x - renderDiffX + Gdx.graphics.width, part1.y - renderDiffY - Gdx.graphics.height, part2.x - renderDiffX + Gdx.graphics.width, part2.y - renderDiffY - Gdx.graphics.height, 10f)
+        renderer.shapes.rectLine(part1.x - renderDiffX - Gdx.graphics.width, part1.y - renderDiffY + Gdx.graphics.height, part2.x - renderDiffX - Gdx.graphics.width, part2.y - renderDiffY + Gdx.graphics.height, 10f)
+        renderer.shapes.rectLine(part1.x - renderDiffX + Gdx.graphics.width, part1.y + renderDiffY + Gdx.graphics.height, part2.x - renderDiffX + Gdx.graphics.width, part2.y - renderDiffY + Gdx.graphics.height, 10f)
     }
 
     override fun dispose() {
