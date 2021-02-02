@@ -29,6 +29,8 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
 
     fun getOtherEndYLocation(part: MonsterPart): Float = if (part1 == part) part2.y else part1.y
 
+    fun getOtherPart(part: MonsterPart): MonsterPart = if (part1 == part) part2 else part1
+
     override fun update(delta: Float) {
         length = sqrt(part1 * part2)
         if (length > maxLength) {

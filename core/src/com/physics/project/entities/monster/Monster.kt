@@ -24,6 +24,7 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     init {
         EntitySystem.add(this)
         parts.add(centralPart)          //Dodawanie kolejnych części do tablicy następuje poziomami długości tzn. pierwsze są te najbliżej głowy później te trochę dalej itd.
+        centralPart.isHead = true
         //TODO: add some random element to part generation
         for (i in 0 until tentacleLength) {
             for (j in 1..tentacleAmount) {
@@ -35,6 +36,49 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
         }
     }
 
+    fun createHeads(){
+        var headlessParts = Array<MonsterPart>()
+        parts.forEach{
+            if(!checkHeadConnection(it)){
+                headlessParts.add(it)
+            }
+        }
+
+    }
+
+    private fun checkHeadConnection(part: MonsterPart): Boolean{
+        var headFound = part.isHead
+        for (i in 0..part.connections.size){
+            if(headFound){
+                break
+            }
+            if (part.connections[i].getOtherPart(part).isHead){
+                headFound = true
+            }
+            else{
+               checkHeadConnection( part.connections[i].getOtherPart(part), part )
+            }
+        }
+        return headFound
+    }
+
+    private fun checkHeadConnection(part: MonsterPart, without: MonsterPart): Boolean{
+        var headFound = part.isHead
+        for (i in 0..part.connections.size){
+            if (headFound) {
+                break
+            }
+            if(part.connections[i].getOtherPart(part) != without) {
+                if (part.connections[i].getOtherPart(part).isHead) {
+                    headFound = true
+                } else {
+                    checkHeadConnection(part.connections[i].getOtherPart(part), part)
+                }
+            }
+        }
+        return headFound
+    }
+
     private fun createPart(x: Float, y: Float, size: Float) = parts.add(MonsterPart(this, this.x + x, this.y + y, size))
 
     private fun connect(part1: MonsterPart, part2: MonsterPart) = springs.add(Spring(part1, part2))
@@ -42,6 +86,7 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     override fun update(delta: Float) {
         centralPart.move(player.x % Gdx.graphics.width, player.y % Gdx.graphics.height)
     }
+
 
     override fun render(renderer: Renderer) {
 //        parts.forEach { renderer.render(it) }

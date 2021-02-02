@@ -29,14 +29,14 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     val connections = Array<Spring>()
     private val collider = CircleCollider(x,y,radius,CollisionTag.ENEMY)
 
+    var isHead = false
+
     operator fun times(part: MonsterPart) = (x - part.x) * (x - part.x) + (y - part.y) * (y - part.y)
 
     init { EntitySystem.add(this) }
 
     override fun update(delta: Float) {
-        if(connections.isEmpty){
-            this.dispose()
-        }
+
 
         dt = delta
         connections.forEach {
@@ -53,9 +53,13 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
             }
             if (collider.tagHit == CollisionTag.BULLET) {
                 hit(collider.xHit, collider.yHit)
+                if(connections.isEmpty){
+                    this.dispose()
+                }
             }
             collider.isColliding = false
         }
+
     }
 
     private fun move(x: Float, y: Float, to: Boolean) {
@@ -89,7 +93,10 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
 
     override fun render(renderer: Renderer) {
         renderer.shapes.set(ShapeRenderer.ShapeType.Filled)
-        renderer.shapes.setColor(color)
+        if (isHead)
+            renderer.shapes.setColor(Color(240,10,10))
+        else
+            renderer.shapes.setColor(Color(10, 10, 240))
         val modX = x % Gdx.graphics.width
         val modY = y % Gdx.graphics.height
         renderer.shapes.circle(modX, modY, radius)
