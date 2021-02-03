@@ -24,7 +24,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         private const val pushForce = 1f
         private const val hitForce = 5f
         private const val speed = 40f
-        private const val maxSpeed = 350f
+        private const val maxSpeed = 300f
         private val headAnimation = Array<Texture>()
     }
 
@@ -105,7 +105,6 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
 
         if (++animationTimer > 191) animationTimer = 0
         headSprite.texture = headAnimation[animationTimer]
-        println(animationTimer)
 
         headSprite.setPosition((x - headX) fMod Gdx.graphics.width, (y - headY) fMod Gdx.graphics.height)
         armSprite.setPosition((x - armX) fMod Gdx.graphics.width, (y - armY) fMod Gdx.graphics.height)
