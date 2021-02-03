@@ -25,6 +25,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         private const val hitForce = 5f
         private const val speed = 40f
         private const val maxSpeed = 350f
+        private val headAnimation = Array<Texture>()
     }
 
     private val headX: Float
@@ -37,6 +38,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     private var centerY: Float
     private var sprite = armSprite
 
+    private var animationTimer = 0
 
     override val layer: Int = 2
 
@@ -59,6 +61,12 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         armSprite.setSize(armSprite.width * radius * 0.00689655172f, armSprite.height * radius * 0.00689655172f)
         armX = armSprite.width * 0.5f
         armY = armSprite.height * 0.5f
+
+        if (headAnimation.size == 0) {
+            for (i in 0..191) {
+                headAnimation.add(Texture("MonsterIdle/smokeMonster${String.format("%03d", i)}.png"))
+            }
+        }
 
         centerX = armX
         centerY = armY
@@ -94,6 +102,10 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
             }
             collider.isColliding = false
         }
+
+        if (++animationTimer > 191) animationTimer = 0
+        headSprite.texture = headAnimation[animationTimer]
+        println(animationTimer)
 
         headSprite.setPosition((x - headX) fMod Gdx.graphics.width, (y - headY) fMod Gdx.graphics.height)
         armSprite.setPosition((x - armX) fMod Gdx.graphics.width, (y - armY) fMod Gdx.graphics.height)
