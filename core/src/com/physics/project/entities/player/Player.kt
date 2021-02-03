@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.*
+import com.badlogic.gdx.utils.Array
 import com.physics.project.Space
 import com.physics.project.collisions.CircleCollider
 import com.physics.project.collisions.CollisionTag
@@ -29,7 +30,7 @@ class Player(var x: Float, var y: Float) : Entity {
     override val layer: Int = 3
 
     //TODO: investigate libGDX internal Asset Manager
-    private val sprite = Sprite(Texture("spaceship.png"))
+    private val sprite = Sprite(Texture("Rocket/rocket001.png"))
     private val centerX: Float
     private val centerY: Float
     private var rotation = 0f
@@ -44,13 +45,19 @@ class Player(var x: Float, var y: Float) : Entity {
     private val shootDelay = 0.4f
 
     private val collider = CircleCollider(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height, 50f, CollisionTag.PLAYER)
+    private val animation = Array<Texture>()
+    private var animationTimer = 0
+
 
     init {
         EntitySystem.add(this)
-        sprite.setSize(100f, 100f)
+        sprite.setSize(146f, 193f)
         centerX = sprite.width * 0.5f
-        centerY = sprite.height * 0.5f
+        centerY = sprite.height * 0.75f
         sprite.setOrigin(centerX, centerY)
+        for (i in 0..119) {
+            animation.add(Texture("Rocket/rocket${String.format("%03d", i)}.png"))
+        }
     }
 
     override fun update(delta: Float) {
@@ -96,6 +103,9 @@ class Player(var x: Float, var y: Float) : Entity {
             if (--hp <= 0) Gdx.app.exit()
             collider.isColliding = false
         }
+
+        if (++animationTimer > 119) animationTimer = 0
+        sprite.texture = animation[animationTimer]
 
         sprite.x = (x - centerX) fMod Gdx.graphics.width
         sprite.y = (y - centerY) fMod Gdx.graphics.height
