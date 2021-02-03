@@ -126,12 +126,12 @@ class Player(var x: Float, var y: Float) : Entity {
         renderer.shapes.setColor(Color.DARK_GRAY)
         for (i in 0..9)
             renderer.shapes.rect(50f + (25f * i), 50f, 20f, 20f)
-        renderer.shapes.rect(50f, 75f, 100f, 20f)
+        renderer.shapes.rect(50f, 75f, 200f, 20f)
         renderer.shapes.setColor(Color.RED)
         for (i in 0..hp - 1)
             renderer.shapes.rect(50f + (25f * i), 50f, 20f, 20f)
         renderer.shapes.setColor(Color.WHITE)
-        renderer.shapes.rect(50f, 75f, 100f * (1 - shootTimer), 20f)
+        renderer.shapes.rect(50f, 75f, 200f * (1f -shootTimer/shootDelay), 20f)
 
         sprite.draw(renderer.sprites)
         val modX = sprite.x
