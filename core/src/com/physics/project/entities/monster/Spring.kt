@@ -58,7 +58,7 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
         renderDiffX *= Gdx.graphics.width
         renderDiffY *= Gdx.graphics.height
         if (renderDiffX < 0f) renderDiffX -= Gdx.graphics.width
-        if (renderDiffY < 0f) renderDiffX -= Gdx.graphics.height
+        if (renderDiffY < 0f) renderDiffY -= Gdx.graphics.height
         //TODO: decrease the number of renders
         renderer.shapes.rectLine(part1.x - renderDiffX, part1.y - renderDiffY, part2.x - renderDiffX, part2.y - renderDiffY, 10f)
         renderer.shapes.rectLine(part1.x - renderDiffX - Gdx.graphics.width, part1.y - renderDiffY, part2.x - renderDiffX - Gdx.graphics.width, part2.y - renderDiffY, 10f)
