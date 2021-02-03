@@ -1,6 +1,8 @@
 package com.physics.project.entities.monster
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
@@ -25,6 +27,17 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         private const val maxSpeed = 350f
     }
 
+    private val headX: Float
+    private val headY: Float
+    private val headSprite = Sprite(Texture("MonsterIdle/smokeMonster000.png"))
+    private val armX: Float
+    private val armY: Float
+    private val armSprite = Sprite(Texture("arm.png"))
+    private var centerX: Float
+    private var centerY: Float
+    private var sprite = armSprite
+
+
     override val layer: Int = 2
 
     private var vx = 0f
@@ -38,7 +51,18 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
 
     operator fun times(part: MonsterPart) = (x - part.x) * (x - part.x) + (y - part.y) * (y - part.y)
 
-    init { EntitySystem.add(this) }
+    init {
+        EntitySystem.add(this)
+        headSprite.setSize(headSprite.width * radius * 0.008f, headSprite.height * radius * 0.008f)
+        headX = headSprite.width * 0.5f
+        headY = headSprite.height * 0.5f
+        armSprite.setSize(armSprite.width * radius * 0.00689655172f, armSprite.height * radius * 0.00689655172f)
+        armX = armSprite.width * 0.5f
+        armY = armSprite.height * 0.5f
+
+        centerX = armX
+        centerY = armY
+    }
 
 
     override fun update(delta: Float) {
@@ -71,6 +95,18 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
             collider.isColliding = false
         }
 
+        headSprite.setPosition((x - headX) fMod Gdx.graphics.width, (y - headY) fMod Gdx.graphics.height)
+        armSprite.setPosition((x - armX) fMod Gdx.graphics.width, (y - armY) fMod Gdx.graphics.height)
+
+        if (isHead) {
+            sprite = headSprite
+            centerX = headX
+            centerY = headY
+        } else {
+            sprite = armSprite
+            centerX = armX
+            centerY = armY
+        }
     }
 
     fun startHeadCreation(){
@@ -107,22 +143,25 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     }
 
     override fun render(renderer: Renderer) {
-        renderer.shapes.set(ShapeRenderer.ShapeType.Filled)
-        if (isHead)
-            renderer.shapes.setColor(Color(240,10,10))
-        else
-            renderer.shapes.setColor(Color(10, 10, 240))
-        val modX = x fMod Gdx.graphics.width
-        val modY = y fMod Gdx.graphics.height
-        renderer.shapes.circle(modX, modY, radius)
-        renderer.shapes.circle(modX - Gdx.graphics.width, modY, radius)
-        renderer.shapes.circle(modX + Gdx.graphics.width, modY, radius)
-        renderer.shapes.circle(modX, modY - Gdx.graphics.height, radius)
-        renderer.shapes.circle(modX, modY + Gdx.graphics.height, radius)
-        renderer.shapes.circle(modX - Gdx.graphics.width, modY - Gdx.graphics.height, radius)
-        renderer.shapes.circle(modX + Gdx.graphics.width, modY - Gdx.graphics.height, radius)
-        renderer.shapes.circle(modX - Gdx.graphics.width, modY + Gdx.graphics.height, radius)
-        renderer.shapes.circle(modX + Gdx.graphics.width, modY + Gdx.graphics.height, radius)
+        sprite.draw(renderer.sprites)
+        val modX = sprite.x
+        val modY = sprite.y
+        sprite.setPosition(modX - Gdx.graphics.width, modY)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX + Gdx.graphics.width, modY)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX, modY - Gdx.graphics.height)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX, modY + Gdx.graphics.height)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX - Gdx.graphics.width, modY - Gdx.graphics.height)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX + Gdx.graphics.width, modY - Gdx.graphics.height)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX - Gdx.graphics.width, modY + Gdx.graphics.height)
+        sprite.draw(renderer.sprites)
+        sprite.setPosition(modX + Gdx.graphics.width, modY + Gdx.graphics.height)
+        sprite.draw(renderer.sprites)
 
     }
 
