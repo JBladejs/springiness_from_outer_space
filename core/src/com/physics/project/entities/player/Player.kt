@@ -32,6 +32,8 @@ class Player(var x: Float, var y: Float) : Entity {
 
     //TODO: investigate libGDX internal Asset Manager
     private val sprite = Sprite(Texture("Rocket/rocket001.png"))
+    private val animation = Array<Texture>()
+    private var animationTimer = 0
     private val centerX: Float
     private val centerY: Float
     private var rotation = 0f
@@ -50,8 +52,6 @@ class Player(var x: Float, var y: Float) : Entity {
     private val maxBullets = 10
 
     private val collider = CircleCollider(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height, 50f, CollisionTag.PLAYER)
-    private val animation = Array<Texture>()
-    private var animationTimer = 0
 
 
     init {
@@ -63,6 +63,8 @@ class Player(var x: Float, var y: Float) : Entity {
         for (i in 0..119) {
             animation.add(Texture("Rocket/rocket${String.format("%03d", i)}.png"))
         }
+
+        Bullet(-1f,-1f,0f)
 
         Hud.maxHealth = hp
         Hud.maxBullets = maxBullets

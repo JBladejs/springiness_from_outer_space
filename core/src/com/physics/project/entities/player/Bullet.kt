@@ -1,9 +1,12 @@
 package com.physics.project.entities.player
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.cos
 import com.badlogic.gdx.math.MathUtils.sin
+import com.badlogic.gdx.utils.Array
 import com.physics.project.collisions.CircleCollider
 import com.physics.project.collisions.CollisionTag
 import com.physics.project.entities.Entity
@@ -20,7 +23,24 @@ class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
 
     companion object{
         const val radius = 10f
+
+        private val animation = Array<Texture>()
+        private val bulletSprite = Sprite(Texture("Plasma/plasma01.png"))
+        private var animationTimer = 0
+
+        init {
+            bulletSprite.setSize(radius*3f, radius*3f)
+            for (i in 0..89) {
+                animation.add(Texture("Plasma/plasma${String.format("%02d", i)}.png"))
+            }
+        }
+
+        fun animate(){
+            if (++animationTimer > 89) animationTimer = 0
+            bulletSprite.texture = animation[animationTimer]
+        }
     }
+
 
     private val collider = CircleCollider(x, y, radius, CollisionTag.BULLET)
 
@@ -46,9 +66,13 @@ class Bullet(var x: Float, var y: Float, direction: Float) : Entity {
     }
 
     override fun render(renderer: Renderer) {
+
         renderer.shapes.set(ShapeRenderer.ShapeType.Filled)
         renderer.shapes.setColor(Color(200, 50, 20))
-        renderer.shapes.circle(x, y, 10f)
+        renderer.shapes.circle(x, y, radius)
+
+        bulletSprite.setCenter(x, y)
+        bulletSprite.draw(renderer.sprites)
     }
 
     override fun dispose() {

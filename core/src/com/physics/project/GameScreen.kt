@@ -10,6 +10,7 @@ import com.physics.project.collisions.CollisionSystem
 import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
 import com.physics.project.entities.monster.Monster
+import com.physics.project.entities.player.Bullet
 import com.physics.project.entities.player.Player
 
 class GameScreen(private val game: SpringinessGame) : Screen {
@@ -25,6 +26,7 @@ class GameScreen(private val game: SpringinessGame) : Screen {
     private fun update(delta: Float) {
         EntitySystem.update(delta)
         CollisionSystem.update()
+        Bullet.animate()
     }
 
     override fun render(delta: Float) {
