@@ -109,6 +109,8 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
                     Hud.currentMonsterHealth--
                     dying = true
                     animationTimer = 1
+                    vx *= 0.5f
+                    vy *= 0.5f
                 }
             }
             collider.isColliding = false

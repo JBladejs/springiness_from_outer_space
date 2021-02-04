@@ -9,6 +9,7 @@ import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
 import com.physics.project.util.setColor
 import kotlin.math.abs
+import kotlin.math.max
 import kotlin.math.sqrt
 
 internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Entity {
@@ -49,7 +50,7 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
     override fun render(renderer: Renderer) {
         //TODO: Refactor all of this
         renderer.shapes.set(ShapeRenderer.ShapeType.Line)
-        renderer.shapes.setColor(Color(255, 255, 255))
+        renderer.shapes.setColor(Color((length/maxLength*255f).toInt(), (length/maxLength*80f).toInt(), (length/maxLength*80f).toInt()))
         //TODO: There's gotta be a better way to do this...
         val xa: Int = part1.x.toInt() / Gdx.graphics.width
         val xb: Int = part2.x.toInt() / Gdx.graphics.width
