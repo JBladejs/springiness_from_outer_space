@@ -27,6 +27,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         private const val speed = 40f
         private const val maxSpeed = 300f
         private val headAnimation = Array<Texture>()
+        private val deathAnimation = Array<Texture>()
     }
 
     private val headX: Float
@@ -40,6 +41,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
     private var sprite = armSprite
 
     private var animationTimer = 0
+    private var dying = false
 
     override val layer: Int = 2
 
@@ -66,6 +68,11 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
         if (headAnimation.size == 0) {
             for (i in 0..191) {
                 headAnimation.add(Texture("MonsterIdle/smokeMonster${String.format("%03d", i)}.png"))
+            }
+        }
+        if (deathAnimation.size == 0) {
+            for (i in 0..70) {
+                deathAnimation.add(Texture("MonsterDeath/death${String.format("%02d", i)}.png"))
             }
         }
 
@@ -98,15 +105,22 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
             if (collider.tagHit == CollisionTag.BULLET) {
                 hit(collider.xHit, collider.yHit)
                 if(connections.isEmpty){
-                    this.dispose()
+                    this.collider.active = false
                     Hud.currentMonsterHealth--
+                    dying = true
+                    animationTimer = 1
                 }
             }
             collider.isColliding = false
         }
 
-        if (++animationTimer > 191) animationTimer = 0
-        headSprite.texture = headAnimation[animationTimer]
+        if(!dying) {
+            if (++animationTimer > 191) animationTimer = 0
+            headSprite.texture = headAnimation[animationTimer]
+        }else{
+            headSprite.texture = deathAnimation[animationTimer]
+            if(++animationTimer > 70) this.dispose()
+        }
 
         headSprite.setPosition((x - headX) fMod Gdx.graphics.width, (y - headY) fMod Gdx.graphics.height)
         armSprite.setPosition((x - armX) fMod Gdx.graphics.width, (y - armY) fMod Gdx.graphics.height)
