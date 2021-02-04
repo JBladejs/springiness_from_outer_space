@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
+import com.physics.project.Hud
 import com.physics.project.collisions.CircleCollider
 import com.physics.project.graphics.Color
 import com.physics.project.Space
@@ -98,6 +99,7 @@ internal data class MonsterPart(var monster: Monster, var x: Float, var y: Float
                 hit(collider.xHit, collider.yHit)
                 if(connections.isEmpty){
                     this.dispose()
+                    Hud.currentMonsterHealth--
                 }
             }
             collider.isColliding = false

@@ -3,6 +3,7 @@ package com.physics.project.entities.monster
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
+import com.physics.project.Hud
 import com.physics.project.graphics.Color
 import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
@@ -24,6 +25,7 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     private val minSize = 10f
 
     init {
+        Hud.maxMonsterHealth = 1
         EntitySystem.add(this)
         parts.add(centralPart)          //Dodawanie kolejnych części do tablicy następuje poziomami długości tzn. pierwsze są te najbliżej głowy później te trochę dalej itd.
         centralPart.isHead = true
@@ -33,8 +35,11 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
                 createPart(110f * (i + 1) * sin(2f * PI / tentacleAmount * j), 110f * (i + 1) * cos(2f * PI / tentacleAmount * j), currentLengthSize)
                 if (i > 0) connect(parts[j + ((i - 1) * tentacleAmount)], parts[j + (i * tentacleAmount)])
                 else connect(parts[0], parts[j + (i * tentacleAmount)])
+
+                Hud.maxMonsterHealth += 2
             }
         }
+        Hud.currentMonsterHealth = Hud.maxMonsterHealth
     }
 
     fun createHeads(){

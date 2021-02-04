@@ -2,6 +2,7 @@ package com.physics.project.entities.monster
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.physics.project.Hud
 import com.physics.project.graphics.Color
 import com.physics.project.entities.Entity
 import com.physics.project.entities.EntitySystem
@@ -41,6 +42,7 @@ internal data class Spring(val part1: MonsterPart, val part2: MonsterPart) : Ent
             //teared = true
             dispose()
             part1.startHeadCreation()
+            Hud.currentMonsterHealth--
         }
     }
 
