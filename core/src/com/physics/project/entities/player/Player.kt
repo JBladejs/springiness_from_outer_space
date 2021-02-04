@@ -17,13 +17,15 @@ import com.physics.project.entities.EntitySystem
 import com.physics.project.graphics.Renderer
 import com.physics.project.util.degreesToRadians
 import com.physics.project.util.fMod
+import com.physics.project.util.setColor
 import kotlin.math.abs
 
 class Player(var x: Float, var y: Float) : Entity {
     companion object {
         private const val speed = 200f
+        private const val shipSize = 30f
 
-        private const val rotationSpeed = 100f
+        private const val rotationSpeed = 160f
         private const val stoppingSpeed = 60f
         private const val maxSpeed = 300f
     }
@@ -51,12 +53,12 @@ class Player(var x: Float, var y: Float) : Entity {
     private var bullets = 10
     private val maxBullets = 10
 
-    private val collider = CircleCollider(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height, 50f, CollisionTag.PLAYER)
+    private val collider = CircleCollider(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height, shipSize, CollisionTag.PLAYER)
 
 
     init {
         EntitySystem.add(this)
-        sprite.setSize(146f, 193f)
+        sprite.setSize(2.92f* shipSize, 3.86f* shipSize)
         centerX = sprite.width * 0.5f
         centerY = sprite.height * 0.75f
         sprite.setOrigin(centerX, centerY)
