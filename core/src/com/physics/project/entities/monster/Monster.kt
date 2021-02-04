@@ -38,21 +38,11 @@ class Monster(x: Float, y: Float, val player: Player, startingSize: Float, tenta
     }
 
     fun createHeads(){
-        //var headlessParts = Array<MonsterPart>()
         parts.forEach{
             if(!checkHeadConnection(it)){
-                //headlessParts.add(it)
                 it.isHead = true
             }
         }
-        /*
-        headlessParts[0].isHead = true
-        for (i in 1..headlessParts.size){
-            if(!checkHeadConnection(headlessParts[i])){
-                headlessParts[i].isHead = true
-                break
-            }
-        }*/
     }
 
     private fun checkHeadConnection(part: MonsterPart): Boolean{

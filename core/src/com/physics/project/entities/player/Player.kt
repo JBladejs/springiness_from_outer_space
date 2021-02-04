@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils.*
 import com.badlogic.gdx.utils.Array
+import com.physics.project.Hud
 import com.physics.project.Space
 import com.physics.project.collisions.CircleCollider
 import com.physics.project.collisions.CollisionTag
@@ -42,7 +43,11 @@ class Player(var x: Float, var y: Float) : Entity {
     private val damageDelay = 1f
 
     private var shootTimer = 0f
-    private val shootDelay = 0.4f
+    private val shootDelay = 0.14f
+    private val reloadDelay = 0.7f
+    private var reloadTimer = 0f
+    private var bullets = 10
+    private val maxBullets = 10
 
     private val collider = CircleCollider(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height, 50f, CollisionTag.PLAYER)
     private val animation = Array<Texture>()
@@ -58,6 +63,9 @@ class Player(var x: Float, var y: Float) : Entity {
         for (i in 0..119) {
             animation.add(Texture("Rocket/rocket${String.format("%03d", i)}.png"))
         }
+
+        Hud.maxHealth = hp
+        Hud.maxBullets = maxBullets
     }
 
     override fun update(delta: Float) {
@@ -85,6 +93,14 @@ class Player(var x: Float, var y: Float) : Entity {
         if (shootTimer > 0) {
             shootTimer -= delta
         }
+        if (reloadTimer > 0){
+            reloadTimer -= delta
+        }else{
+            if (bullets < maxBullets){
+                bullets++
+                reloadTimer = reloadDelay
+            }
+        }
 
         if (abs(vx) >= maxSpeed)
             vx = if (vx > 0) maxSpeed else -maxSpeed
@@ -110,29 +126,22 @@ class Player(var x: Float, var y: Float) : Entity {
         sprite.x = (x - centerX) fMod Gdx.graphics.width
         sprite.y = (y - centerY) fMod Gdx.graphics.height
         sprite.rotation = rotation
+
+        Hud.bulletRealoadPercent = reloadTimer/reloadDelay
+        Hud.currentBullets = bullets
+        Hud.currentHealth = hp
     }
 
     private fun shoot() {
-        if (shootTimer <= 0) {
+        if (shootTimer <= 0 && bullets > 0) {
             Bullet(x fMod Gdx.graphics.width, y fMod Gdx.graphics.height, degreesToRadians(rotation))
             
             shootTimer = shootDelay
+            bullets--
         }
     }
 
     override fun render(renderer: Renderer) {
-        //TODO: make normal HUD
-        renderer.shapes.set(ShapeRenderer.ShapeType.Filled)
-        renderer.shapes.setColor(Color.DARK_GRAY)
-        for (i in 0..9)
-            renderer.shapes.rect(50f + (25f * i), 50f, 20f, 20f)
-        renderer.shapes.rect(50f, 75f, 200f, 20f)
-        renderer.shapes.setColor(Color.RED)
-        for (i in 0..hp - 1)
-            renderer.shapes.rect(50f + (25f * i), 50f, 20f, 20f)
-        renderer.shapes.setColor(Color.WHITE)
-        renderer.shapes.rect(50f, 75f, 200f * (1f -shootTimer/shootDelay), 20f)
-
         sprite.draw(renderer.sprites)
         val modX = sprite.x
         val modY = sprite.y
